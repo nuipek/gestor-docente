@@ -61,3 +61,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/target/
+/.settings/
+.classpath
+.project
+.tern-project
+.pmd
+.checkstyle

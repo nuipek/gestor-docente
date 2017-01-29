@@ -7,4 +7,8 @@
   <modules>
   	<module>gestion-docente-spring</module>
   </modules>
+  <properties>
+  	<java-version>1.6</java-version>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>
