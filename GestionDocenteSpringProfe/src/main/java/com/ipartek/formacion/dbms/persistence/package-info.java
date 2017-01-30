@@ -1,8 +1,8 @@
 /**
- * 
+ * Este paquete contendrá la capa de persistencia del proyecto.
  */
 /**
- * @author va00
+ * @author Urko Villanueva.
  *
  */
 package com.ipartek.formacion.dbms.persistence;

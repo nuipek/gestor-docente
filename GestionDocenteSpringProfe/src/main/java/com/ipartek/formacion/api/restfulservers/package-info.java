@@ -1,4 +1,6 @@
 /**
+ * Este paquete va a contener los servicios web restful clientes 
+ * creados en la aplicacion.
  * 
  */
 /**
