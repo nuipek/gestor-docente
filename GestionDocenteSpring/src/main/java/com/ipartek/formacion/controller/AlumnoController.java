@@ -30,6 +30,7 @@ public class AlumnoController {
 		List alumnos  = aS.getAll();
 		// Enganchar la lista al ModelAndView es igual a añadirla a la request
 		mav.addObject("listadoAlumnos", alumnos);
+	
 		logger.trace("Pasa por getAll()");
 		return mav; 
 	}

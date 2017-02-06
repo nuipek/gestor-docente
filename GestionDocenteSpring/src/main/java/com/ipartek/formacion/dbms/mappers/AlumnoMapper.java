@@ -15,7 +15,7 @@ public class AlumnoMapper implements RowMapper<Alumno> {
 		alumno.setCodigo(rs.getInt("codigo"));
 		alumno.setApellidos(rs.getString("apellidos"));
 		alumno.setNombre(rs.getString("nombre"));
-		return null;
+		return alumno;
 	}
 
 }

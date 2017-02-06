@@ -43,10 +43,13 @@ public class AlumnoDAOImp implements AlumnoDAO {
 		final String SQL = "SELECT codigo as codigo, nombre as nombre, apellidos as apellidos FROM alumno";
 		List<Alumno> alumnos = null;
 		try{
-		  alumnos = (List<Alumno>) template.queryForObject(SQL, new AlumnoMapper());
+			
+		  alumnos =  template.query(SQL, new AlumnoMapper());
+		  
 		}catch(EmptyResultDataAccessException e){
 			logger.trace(e.getMessage());
 			alumnos = new ArrayList<Alumno>();
+			
 		}
 		return alumnos;
 	}
