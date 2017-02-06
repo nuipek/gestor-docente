@@ -23,6 +23,11 @@
     	<property name="dataSource" ref="mysqlDataSource"/>
 	</bean>
 	
+	 <bean id="profesorDaoImp" 
+      class="com.ipartek.formacion.dbms.dao.ProfesorDAOImp">
+    	<property name="dataSource" ref="mysqlDataSource"/>
+	</bean>
+	
 </beans>
 
  

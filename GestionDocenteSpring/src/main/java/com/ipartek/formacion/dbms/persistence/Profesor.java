@@ -17,15 +17,18 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 	public static final long YEAR_MILISEGUNDOS = 31556900000L;
 	public static final long DAY_MILISEGUNDOS = 86400001L;
 	
-	private int nSS;
+	
 	private int codigo;
+	private int nSS;
 	private String dni;
 	private String nombre;
 	private String apellidos;
 	private Date fNacimiento;
 	private String email;
 	private String direccion;
-	
+	private String poblacion;
+	private int codigoPostal;
+	private int telefono; 
 	private String sessionId;
 
 	public Profesor() {
@@ -44,6 +47,11 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 		tiempo -=   (18 * YEAR_MILISEGUNDOS + DAY_MILISEGUNDOS);
 		Date fecha = new Date(tiempo);
 		this.fNacimiento = fecha;
+		
+		this.poblacion="";
+		this.codigoPostal=0;
+		this.telefono=0; 
+		
 		this.codigo = CODIGO_NULO;
 
 	}
@@ -140,6 +148,30 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 		}
 
 		this.fNacimiento = fNacimiento;
+	}
+	
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(int codigoPostal) {
+	this.codigoPostal = codigoPostal;
+	}
+
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
 	}
 
 	public String getSessionId() {

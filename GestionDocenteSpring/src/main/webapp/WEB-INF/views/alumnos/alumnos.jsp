@@ -12,6 +12,7 @@
 		<h1>Gestion Docente - Listado Alumnos</h1>
 	</header>
 <main>
+<a href="alumnos/addAlumno">Crear Alumno</a>
 <table>
 	<thead>
 		<tr>
@@ -27,7 +28,10 @@
 		<tr>
 		 	<td>${alumno.nombre}</td> 
 		 	<td>${alumno.apellidos}</td> 
-		 	<td><a href="">Editar</a></td>
+		 	<td>
+		 		<a href="alumnos/${alumno.codigo}">Editar</a>
+		 		<a href="alumnos/deleteAlumno/${alumno.codigo}">Borrar</a>
+		 	</td>
 		 </tr>
 		</c:forEach>
 	</c:when>
