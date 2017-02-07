@@ -31,6 +31,11 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	private String email;
 	private String direccion;
 	
+
+	private int telefono;
+	private String poblacion;
+	private int codigoPostal;
+	
 	private String sessionId;
 
 	private int codigo;
@@ -54,6 +59,11 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		this.codigo = CODIGO_NULO;
 		this.activo = true;
 		this.nHermanos = 0;
+		this.codigoPostal=48;
+		this.poblacion="";
+		this.telefono=94;
+		
+		this.sessionId = "";
 		
 		
 
@@ -86,6 +96,30 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 
 	public void setnHermanos(int nHermanos) {
 		this.nHermanos = nHermanos;
+	}
+	
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(int codigoPostal) {
+		this.codigoPostal = codigoPostal;
 	}
 
 	/**

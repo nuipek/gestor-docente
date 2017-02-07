@@ -1,13 +1,23 @@
 package com.ipartek.formacion.controller;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +32,20 @@ import com.ipartek.formacion.service.interfaces.AlumnoService;
 public class AlumnoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
-
 	private ModelAndView mav = null;
+	
 	@Inject//equivale a @Autowired
 	private AlumnoService aS = null;
+	
+	@Resource(name="alumnoValidator") // Equivalente a @Autowired @Qualifier("AlumnoValidator")
+	private Validator validator = null; //Objeto validador de spring
+	
+	@InitBinder  // Esta clase llama al init del servlet de spring para binder
+	private void initBinder(WebDataBinder binder){
+		binder.setValidator(validator);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), false, 10));
+	
+	}
 	
 	@RequestMapping( method=RequestMethod.GET)
 	public ModelAndView getAll(){
@@ -60,18 +80,27 @@ public class AlumnoController {
 		return "alumnos/alumno";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public String saveAlumno(@ModelAttribute("alumno") Alumno alumno, Model model){
+	@RequestMapping(value="save", method=RequestMethod.POST)
+	public String saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, Model model, 
+							 BindingResult bindingResult){
 		String destino="";
-		if (alumno.getCodigo() > Alumno.CODIGO_NULO){
-			aS.update(alumno);
+		
+		if (bindingResult.hasErrors()){
+			logger.info("alumno tiene errores");
+			destino = "alumnos/alumno";
 		}
 		else
 		{
-		 aS.create(alumno);	
+			destino="redirect:/alumnos";
+			if (alumno.getCodigo() > Alumno.CODIGO_NULO){
+				aS.update(alumno);
+			}
+			else
+			{
+				aS.create(alumno);	
+			}
 		}
-		
-		return destino;
+	return destino;
 		
 	}
 }

@@ -21,6 +21,10 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!--  Los  objetos aqui definidos son visibles solo en la capa vista controlador -->
+	<beans:bean id="alumnoValidator" class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
+
+	
 	<context:component-scan base-package="com.ipartek.formacion" />
 	
 	
