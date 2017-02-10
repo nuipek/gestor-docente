@@ -13,7 +13,7 @@
 </head>
 <body>
 	<form:form action="save" method="post" commandName="alumno">
-		<c:if test"${!emtpy alumno}">
+		<c:if test="${!empty alumno}">
 			<form:hidden path="codigo"/>
 		</c:if>
 		<div>
@@ -73,7 +73,6 @@
 		   	<c:set var="men" value="Editar"/>
 		   </c:if>
 		   <input type="submit" value="${men}">
-			<form:button></form:button>
 		</div>
 	</form:form>
 	

@@ -12,12 +12,14 @@
 		<h1>Gestion Docente - Listado Profesores</h1>
 	</header>
 <main>
+<a href="profesores/addProfesor">Crear Profesor</a>
 <table>
 	<thead>
 		<tr>
 			<th>Nombre</th>
 			<th>Apellidos</th>
 			<th>Editar</th>
+			<th>Borrar</th>
 		</tr>
 	</thead>
 <tbody>		
@@ -27,7 +29,8 @@
 		<tr>
 		 	<td>${profesor.nombre}</td> 
 		 	<td>${profesor.apellidos}</td> 
-		 	<td><a href="">Editar</a></td>
+		 	<td><a href="profesores/${profesor.codigo}">Editar</a></td>
+		 	<td><a href="profesores/deleteProfesor/${profesor.codigo}">Borrar</a></td>
 		 </tr>
 		</c:forEach>
 	</c:when>

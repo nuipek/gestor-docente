@@ -1,16 +1,21 @@
 package com.ipartek.formacion.controller.validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.ipartek.formacion.dbms.persistence.Alumno;
+import com.ipartek.formacion.dbms.persistence.Cliente;
+import com.ipartek.formacion.service.Util;
 
 public class AlumnoValidator implements Validator {
+	   private static final Logger logger = LoggerFactory.getLogger(AlumnoValidator.class);
 
 	@Override
 	public boolean supports(Class<?> paramClass) {
-	
+		logger.info("Clase Aplica " +  paramClass.getName()+" " + Alumno.class.isAssignableFrom(paramClass));
 		// Clase o clases que deben ser procesadas por el validador
 		return Alumno.class.equals(paramClass);
 	}
@@ -32,9 +37,9 @@ public class AlumnoValidator implements Validator {
 				 			new Object[]{"'codigo'"}, "no puede ser menor que " + Alumno.CODIGO_NULO);
 	 
 	  }
-	 
-	 if (false){ // validacion letra dni
-		errors.rejectValue("dni", "letraDNIIncorrecta", new Object[]{"'dni'"}, "El DNI introducido es incorrecto"); 
+	 logger.info("DNI " + alum.getDni());
+	 if (!Util.validarDni(alum.getDni())){ // validacion letra dni
+		 errors.rejectValue("dni", "letraDNIIncorrecta", new Object[]{"'dni'"}, "La letra del DNI introducido es incorrecto"); 
 	  }
 	 
 	 

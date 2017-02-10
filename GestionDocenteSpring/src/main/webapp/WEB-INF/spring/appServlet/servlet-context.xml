@@ -24,6 +24,8 @@
 	<!--  Los  objetos aqui definidos son visibles solo en la capa vista controlador -->
 	<beans:bean id="alumnoValidator" class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
 
+		<beans:bean id="clienteValidator" 
+			class="com.ipartek.formacion.controller.validator.ClienteValidator"/>	
 	
 	<context:component-scan base-package="com.ipartek.formacion" />
 	

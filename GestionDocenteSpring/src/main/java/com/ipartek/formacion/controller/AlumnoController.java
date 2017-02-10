@@ -81,7 +81,7 @@ public class AlumnoController {
 	}
 	
 	@RequestMapping(value="save", method=RequestMethod.POST)
-	public String saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, Model model, 
+	public String saveAlumno(Model model, @ModelAttribute("alumno") @Validated Alumno alumno,  
 							 BindingResult bindingResult){
 		String destino="";
 		

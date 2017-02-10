@@ -3,32 +3,52 @@ package com.ipartek.formacion.dbms.persistence;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.ipartek.formacion.dbms.persistence.validator.Phone;
 import com.ipartek.formacion.service.Util;
 
 public class Profesor  implements Comparable<Profesor>, Serializable {
 	/**
 	 * 
 	 */
+	
+	//@NotNull
+	//@NotBlank
+	
 	private static final long serialVersionUID = -986241053422788368L;
 	public static final int CODIGO_NULO = -1;
 	public static final long YEAR_MILISEGUNDOS = 31556900000L;
 	public static final long DAY_MILISEGUNDOS = 86400001L;
-	
-	
-	private int codigo;
+		
+	private Integer codigo;
 	private int nSS;
+	@NotNull
+	@NotBlank
+	@Pattern (regexp = "[0-9]{8}[a-z-A-Z]", message = "Dni Introducido incorrecto")
 	private String dni;
+	@Size(min=3, max=50)
 	private String nombre;
+	@Size(min=3, max=150)
 	private String apellidos;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@Past
 	private Date fNacimiento;
+	@Email
 	private String email;
 	private String direccion;
 	private String poblacion;
-	private int codigoPostal;
-	private int telefono; 
+	private int codigoPostal; 
+	@Phone
+	private String telefono; 
 	private String sessionId;
 
 	public Profesor() {
@@ -50,7 +70,7 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 		
 		this.poblacion="";
 		this.codigoPostal=0;
-		this.telefono=0; 
+		this.telefono=""; 
 		
 		this.codigo = CODIGO_NULO;
 
@@ -105,12 +125,12 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 	}
 
 	public void setDni(String dni){
-		final String regex = "\\d{8}[A-Za-z]";
+		/*final String regex = "\\d{8}[A-Za-z]";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(dni);
 		if (!matcher.find() && Util.validarDni(dni)) {
 			//throw new PersonaException(PersonaException.COD_DNI_ERROR, PersonaException.MSG_DNI_ERROR);
-		}
+		}*/
 		this.dni = dni;
 	}
 
@@ -119,9 +139,7 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		if (nombre.length() < 3) {
-			//throw new PersonaException(PersonaException.COD_LONGITUD_NOMBRE, PersonaException.MSG_LONGITUD_NOMBRE);
-		}
+
 		this.nombre = nombre;
 	}
 
@@ -147,7 +165,7 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 			//throw new PersonaException(PersonaException.COD_EDAD_ERROR, PersonaException.MSG_EDAD_ERROR);
 		}
 
-		this.fNacimiento = fNacimiento;
+		this.fNacimiento = fNacimiento;;
 	}
 	
 	public String getPoblacion() {
@@ -166,11 +184,11 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 	this.codigoPostal = codigoPostal;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
