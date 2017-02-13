@@ -1,19 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-<h1>
-	Hello world!  
-</h1>
-<nav>
-	<ul>
-		<li><a href="alumnos">Ir a alumnos</a></li>
-		<li><a href="profesores">Ir a profesores</a></li>
-		<li><a href="clientes">Ir a clientes</a></li>
-	</ul>
-</nav>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<spring:message var="seccion" code="home.titulo" />
+<c:set scope="request" var="seccion" value="${seccion}"/>
+<jsp:include page="includes/header.jsp" />
+
+
 </body>
 </html>

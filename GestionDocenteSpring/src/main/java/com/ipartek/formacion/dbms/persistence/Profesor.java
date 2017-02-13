@@ -31,23 +31,25 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 		
 	private Integer codigo;
 	private int nSS;
-	@NotNull
-	@NotBlank
-	@Pattern (regexp = "[0-9]{8}[a-z-A-Z]", message = "Dni Introducido incorrecto")
+	
+	@Pattern (regexp = "[0-9]{8}[a-z-A-Z]", message = "Pattern.dni")
 	private String dni;
-	@Size(min=3, max=50)
+	@Size(min=3, max=50, message="Size.nombre")
 	private String nombre;
-	@Size(min=3, max=150)
+	@Size(min=3, max=150, message="Size.apellidos")
 	private String apellidos;
 	@DateTimeFormat(pattern="dd/MM/yyyy")
-	@Past
+	@Past(message="Past.fNacimiento")
 	private Date fNacimiento;
-	@Email
+	
+	@NotNull(message = "NotEmpty.email")
+	@NotBlank(message = "NotBlank.email")
+	@Email(message = "Email.email")
 	private String email;
 	private String direccion;
 	private String poblacion;
 	private int codigoPostal; 
-	@Phone
+	@Phone(message="Phone.telefono")
 	private String telefono; 
 	private String sessionId;
 

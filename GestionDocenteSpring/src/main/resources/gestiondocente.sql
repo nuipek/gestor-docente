@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2017 a las 13:33:30
+-- Tiempo de generación: 13-02-2017 a las 13:29:28
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -21,6 +21,42 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `gestiondocente` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `gestiondocente`;
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+DROP PROCEDURE IF EXISTS `alumnodelete`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnodelete`(IN `p` INT)
+    NO SQL
+BEGIN
+
+DELETE FROM Alumno WHERE codigo = pCodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnogetAll`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnogetAll`()
+    NO SQL
+BEGIN
+SELECT   `codigo`, `nombre`, `apellidos`, `fNacimiento`
+, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `dni`, `nHermanos`, `activo`
+		
+FROM alumno;
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnogetById`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnogetById`(IN `pCodigo` INT)
+    NO SQL
+BEGIN
+
+SELECT `codigo`, `nombre`, `apellidos`, `fNacimiento`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `dni`, `nHermanos`, `activo`
+FROM alumno
+WHERE codigo = pCodigo;
+
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -56,6 +92,32 @@ INSERT INTO `alumno` (`codigo`, `nombre`, `apellidos`, `fNacimiento`, `direccion
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `apellidos` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `direccion` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `telefono` int(9) NOT NULL,
+  `identificativo` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`codigo`, `nombre`, `apellidos`, `direccion`, `email`, `telefono`, `identificativo`) VALUES
+(1, 'Patxi', 'Patas Cortas', 'Escuela artes y oficios nº11', 'txoripavo@yahoo.es', 0, '30694324L'),
+(2, 'Yoni', 'Macarroni', 'Pavo pozo 26, 4A', 'macarroni@hotmail.es', 0, '44974396K');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `profesor`
 --
 
@@ -73,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `telefono` int(9) NOT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `profesor`

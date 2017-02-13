@@ -24,12 +24,12 @@ public class AlumnoValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 	// errors es la coleccion donde se incluyen los errores que nos reporta el validador para procesar
 	// el hasErrors
-	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre","505","Tiene que introducir un nombre");
-	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellidos","505","Tiene que introducir un apellido");
-	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email","505","Tiene que introducir un email");
-	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni","505","Tiene que introducir un dni");
-	 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono","505","Tiene que introducir un telefono");
-	 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "form.nombreRequerido","Tiene que introducir un nombre");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellidos", "form.apellidoRequerido","Tiene que introducir un apellido");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "form.emailRequerido","Tiene que introducir un email");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "form.dniRequerido", "Tiene que introducir un dni");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono", "form.telefonoRequerido","Tiene que introducir un telefono");
+ 
 	 // Se realizaran importaciones propias al objeto
 	 Alumno alum = (Alumno)obj;
 	 if (alum.getCodigo()< Alumno.CODIGO_NULO){

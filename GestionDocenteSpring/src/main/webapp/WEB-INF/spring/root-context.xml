@@ -25,5 +25,18 @@
     	<property name="dataSource" ref="mysqlDataSource"/>
     </bean>
     
+       <bean id="messageSource"
+      class="org.springframework.context.support.ResourceBundleMessageSource">
+       <property name="basenames">
+           <list>
+               <value>messages/validationMessages</value> <!-- Carga en una lista los ficheros de properties con nombre validation_Message_xx.properties -->
+               <value>messages/viewtext</value>  <!-- Carga en la lista los ficheros de properties de nomenclatura viewText_xx.properties -->
+           </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+    
+    
+    
 </beans>
  

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
 import com.ipartek.formacion.dbms.mappers.AlumnoMapper;
 import com.ipartek.formacion.dbms.persistence.Alumno;
+import com.ipartek.formacion.dbms.persistence.Profesor;
 
 @Repository("alumnoDaoImp")
 public class AlumnoDAOImp implements AlumnoDAO {
@@ -40,7 +41,7 @@ public class AlumnoDAOImp implements AlumnoDAO {
 
 	@Override
 	public List<Alumno> getAll() {
-		final String SQL = "SELECT codigo as codigo, nombre as nombre, apellidos as apellidos FROM alumno";
+		final String SQL = "CALL alumnogetAll();";
 		List<Alumno> alumnos = null;
 		try{
 			
@@ -48,6 +49,11 @@ public class AlumnoDAOImp implements AlumnoDAO {
 		  
 		}catch(EmptyResultDataAccessException e){
 			logger.trace(e.getMessage());
+			alumnos = new ArrayList<Alumno>();
+			
+		}
+		catch (Exception e){
+			logger.error("Error en la recuperacion de la lista de alumnos " + e.getMessage());
 			alumnos = new ArrayList<Alumno>();
 			
 		}

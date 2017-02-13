@@ -85,9 +85,9 @@ public class ProfesorDAOImp implements ProfesorDAO {
 			profesores = new ArrayList<Profesor>();
 			
 		}catch (Exception e){
-			logger.error("Error en la recuperacion de la lista " + e.getMessage());
+			logger.error("Error en la recuperacion de la lista de profesores" + e.getMessage());
 			profesores = new ArrayList<Profesor>();
-			profesores = null;
+			
 		}
 		
 		
