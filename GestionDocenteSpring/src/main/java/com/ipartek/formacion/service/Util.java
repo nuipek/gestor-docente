@@ -24,6 +24,7 @@ public class Util {
 
 	public static boolean validarDni(String dni) {
 		boolean valido = false;
+		//final String REGEX = "[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]|[0-9]{8}[trwagmyfpdxbnjzsqvhlcket]";
 		final String REGEX = "[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]";
 		final Pattern pattern = Pattern.compile(REGEX);
 		final Matcher matcher = pattern.matcher(dni);

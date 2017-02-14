@@ -205,7 +205,7 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	}
 
 	public void setfNacimiento(Date fNacimiento)  {
-		GregorianCalendar gc = new GregorianCalendar();
+		/*GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(new Date());
 		int anyo18ago = gc.get(GregorianCalendar.YEAR) - 18;// 1999
 		gc.set(GregorianCalendar.YEAR, anyo18ago);
@@ -213,7 +213,7 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		if (gc.getTime().before(fNacimiento)) {
 			//throw new PersonaException(PersonaException.COD_EDAD_ERROR, PersonaException.MSG_EDAD_ERROR);
 		}
-
+*/
 		this.fNacimiento = fNacimiento;
 	}
 
