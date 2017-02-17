@@ -19,5 +19,6 @@ public interface AlumnoService {
 	
 	public void setAlumnoDao(AlumnoDAO alumnoDao);
 	
+	public boolean alumnoDniDuplicado(String dni, int codigo);
 	
 }

@@ -42,6 +42,12 @@
 		</beans:bean>
 	</interceptors>
 	
+	
+	<!-- Carga los ficheros de properties de constantes  -->
+	<context:property-placeholder location="classpath*:/constantes/constantes.properties"/>
+
+	
+	
 	<context:component-scan base-package="com.ipartek.formacion" />
 	
 	

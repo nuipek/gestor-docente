@@ -16,6 +16,7 @@ public class Cliente implements Serializable,Comparable<Cliente> {
 	private String telefono;
 	private String email;
 	private String identificativo;
+	private boolean activo;
 	
 	
 	public static final int CODIGO_NULO = -1;
@@ -132,6 +133,16 @@ public class Cliente implements Serializable,Comparable<Cliente> {
 	public int compareTo(Cliente o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 	
 	

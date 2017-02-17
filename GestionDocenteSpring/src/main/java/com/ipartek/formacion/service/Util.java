@@ -25,7 +25,7 @@ public class Util {
 	public static boolean validarDni(String dni) {
 		boolean valido = false;
 		//final String REGEX = "[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]|[0-9]{8}[trwagmyfpdxbnjzsqvhlcket]";
-		final String REGEX = "[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]";
+		final String REGEX = "[0-9]{8}[trwagmyfpdxbnjzsqvhlcket]";
 		final Pattern pattern = Pattern.compile(REGEX);
 		final Matcher matcher = pattern.matcher(dni);
 		
@@ -39,7 +39,7 @@ public class Util {
 	
 	private static boolean comprobarLetraDni(String dni) {
 		boolean valido = false;
-		String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+		String letras = "trwagmyfpdxbnjzsqvhlcket";
 	
 		try {
 			int dniNum = Integer.parseInt(dni.substring(0, dni.length() - 1));

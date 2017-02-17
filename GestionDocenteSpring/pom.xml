@@ -18,8 +18,17 @@
 		 <!-- Version de validacion Java estandar y la biblioteca que la implementa Hibernate -->
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
+		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
 	<dependencies>
+		<!--  https://common -->
+<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+<dependency>
+    <groupId>commons-beanutils</groupId>
+    <artifactId>commons-beanutils</artifactId>
+    <version>${commons-beanutils.version}</version>
+</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -141,6 +150,12 @@
     		<groupId>mysql</groupId>
     		<artifactId>mysql-connector-java</artifactId>
     		<version>${mysql.version}</version>
+		</dependency>
+		<!-- SQL SERVER  No descarga Maven debemos instalarlo a mano -->
+		<dependency>
+    		<groupId>com.microsoft.sqlserver</groupId>
+    		<artifactId>sqljdbc4</artifactId>
+   		 <version>4.0</version>
 		</dependency>
 </dependencies>
     <build>

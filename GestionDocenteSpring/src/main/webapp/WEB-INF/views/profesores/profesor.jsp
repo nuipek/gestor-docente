@@ -11,7 +11,8 @@
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
 <jsp:include page="../includes/header.jsp" />
 
-	<form:form action="save" method="post" commandName="profesor">
+	<form:form action="save" method="post" modelAttribute="profesor">
+	<form:errors path=""/>
 		<c:if test="${!empty profesor}">
 			<form:hidden path="codigo"/>
 		</c:if>

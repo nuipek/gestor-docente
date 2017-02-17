@@ -17,6 +17,8 @@ public interface ClienteDAO extends DAOSetter {
 	
 	public void delete(int codigo);
 	
+	public boolean clienteIdentificativoDuplicado(String identificativo, int codigo);
+	
 	
 	
 	

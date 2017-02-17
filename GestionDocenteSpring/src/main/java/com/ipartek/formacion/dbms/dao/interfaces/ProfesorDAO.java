@@ -15,6 +15,10 @@ public interface ProfesorDAO extends DAOSetter {
 	public Profesor update(Profesor profesor);
 	
 	public void delete (int codigo);
+
+	public boolean profesorDniDuplicado(String dni, int codigo);
+
+	public boolean profesornSSDuplicado(String nSS, int codigo);
 	
 	
 	

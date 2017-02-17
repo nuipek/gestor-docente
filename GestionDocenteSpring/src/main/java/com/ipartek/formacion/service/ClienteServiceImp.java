@@ -52,4 +52,10 @@ public class ClienteServiceImp implements ClienteService {
 		return clienteDao.create(cliente);
 	}
 
+	@Override
+	public boolean clienteIdentificativoDuplicado(String identificativo, int codigo) {
+		
+		return clienteDao.clienteIdentificativoDuplicado(identificativo, codigo);
+	}
+
 }

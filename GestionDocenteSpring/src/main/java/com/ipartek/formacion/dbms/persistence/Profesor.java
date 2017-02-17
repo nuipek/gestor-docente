@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -11,12 +12,29 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.ipartek.formacion.dbms.dao.ProfesorDAOImp;
+import com.ipartek.formacion.dbms.persistence.validator.DniDuplicado;
+import com.ipartek.formacion.dbms.persistence.validator.DniDuplicadoValidator;
+import com.ipartek.formacion.dbms.persistence.validator.DniLetra;
 import com.ipartek.formacion.dbms.persistence.validator.Phone;
+import com.ipartek.formacion.dbms.persistence.validator.PostalCode;
+import com.ipartek.formacion.dbms.persistence.validator.ProfesorExists;
+import com.ipartek.formacion.dbms.persistence.validator.ValidacionProfesor;
+import com.ipartek.formacion.service.ProfesorServiceImp;
 import com.ipartek.formacion.service.Util;
+import com.ipartek.formacion.service.interfaces.ProfesorService;
 
-public class Profesor  implements Comparable<Profesor>, Serializable {
+//@DniDuplicado
+
+//Se ejecuta dos veces porque es una lista para revisar los dos campos
+@ProfesorExists.List({ @ProfesorExists(code = "codigo", key = "dni", message = "El dni ya existe en la base de datos"),
+					   @ProfesorExists(code = "codigo", key = "nSS", message = "El nss ya existe en la base de datos"), })
+public class Profesor  implements ValidacionProfesor, Comparable<Profesor>, Serializable {
 	/**
 	 * 
 	 */
@@ -28,15 +46,31 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 	public static final int CODIGO_NULO = -1;
 	public static final long YEAR_MILISEGUNDOS = 31556900000L;
 	public static final long DAY_MILISEGUNDOS = 86400001L;
+	
+	private Logger logger = LoggerFactory.getLogger(Profesor.class);
+	
+	@Inject
+	private ProfesorService pS;
 		
-	private Integer codigo;
-	private int nSS;
+	private int codigo;
+	
+	@NotNull(message = "NotEmpty.nSS")
+	@NotBlank(message = "NotBlank.nSS")
+	@Pattern (regexp = "[0-9]{12}", message = "Pattern.nSS")
+	@Size(max=12, message="Size.nSS")
+	private String nSS;
 	
 	@Pattern (regexp = "[0-9]{8}[a-z-A-Z]", message = "Pattern.dni")
+	@DniLetra(message="DniLetra.dni")
 	private String dni;
+	
+	@NotNull(message = "NotEmpty.nombre")
+	@NotBlank(message = "NotBlank.nombre")
 	@Size(min=3, max=50, message="Size.nombre")
 	private String nombre;
-	@Size(min=3, max=150, message="Size.apellidos")
+	@NotNull(message = "NotEmpty.apellidos")
+	@NotBlank(message = "NotBlank.apellidos")
+	@Size(max=250, message="Size.apellidos")
 	private String apellidos;
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Past(message="Past.fNacimiento")
@@ -45,18 +79,24 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 	@NotNull(message = "NotEmpty.email")
 	@NotBlank(message = "NotBlank.email")
 	@Email(message = "Email.email")
+	@Size(max=150, message="Size.email")
 	private String email;
+
+	@Size(max=250, message="Size.direccion")
 	private String direccion;
+	@Size(max=150, message="Size.poblacion")
 	private String poblacion;
+	@PostalCode
 	private int codigoPostal; 
 	@Phone(message="Phone.telefono")
 	private String telefono; 
-	private String sessionId;
+	
+	private boolean activo;
 
 	public Profesor() {
 		super();
 		this.codigo = CODIGO_NULO;
-		this.nSS = 0;
+		this.nSS = "0";
 		long tiempo=0L;
 		this.nombre="";
 		this.apellidos="";
@@ -78,11 +118,11 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 
 	}
 
-	public int getnSS() {
+	public String getnSS() {
 		return nSS;
 	}
 
-	public void setnSS(int nSS) {
+	public void setnSS(String nSS) {
 		this.nSS = nSS;
 	}
 
@@ -194,11 +234,20 @@ public class Profesor  implements Comparable<Profesor>, Serializable {
 		this.telefono = telefono;
 	}
 
-	public String getSessionId() {
-		return sessionId;
+	
+
+	public boolean isActivo() {
+		return activo;
 	}
 
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	@Override
+	public boolean isValid() {
+		logger.error(this.toString());
+		logger.info("El dni esta duplicado");
+		return true;
 	}
 }

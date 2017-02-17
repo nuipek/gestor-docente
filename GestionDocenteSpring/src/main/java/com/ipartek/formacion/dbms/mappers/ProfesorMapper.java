@@ -17,12 +17,13 @@ public class ProfesorMapper implements RowMapper<Profesor> {
 		profesor.setNombre(rs.getString("nombre"));
 		profesor.setApellidos(rs.getString("apellidos"));
 		profesor.setDni(rs.getString("dni"));
-		//profesor.setnSS(rs.getBigDecimal("nSS"));
+		profesor.setnSS(String.valueOf(rs.getLong("nSS")));
 		profesor.setEmail(rs.getString("email"));
 		profesor.setTelefono(String.valueOf(rs.getInt("telefono")));
 		profesor.setDireccion(rs.getString("direccion"));
 		profesor.setCodigoPostal(rs.getInt("codigoPostal"));
 		profesor.setPoblacion(rs.getString("poblacion"));
+		profesor.setActivo(rs.getBoolean("activo"));
 	return profesor;
 	
     }

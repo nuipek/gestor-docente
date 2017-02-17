@@ -5,12 +5,16 @@ import java.lang.annotation.Annotation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PhoneValidator implements ConstraintValidator<Phone,String> {
+import com.ipartek.formacion.service.Util;
 
+public class PhoneValidator implements ConstraintValidator<Phone,String> {
+	 
+
+	 
 	@Override
-	public void initialize(Phone param) {
-		
-		
+	public void initialize(Phone annotation) {
+	
+	
 	}
 
 	@Override
@@ -22,7 +26,8 @@ public class PhoneValidator implements ConstraintValidator<Phone,String> {
 	    	if(!phoneN.matches("\\d{9}")){
 	    		valido = false;
 	    	}
-	    }
+	    	
+	      }
 		return valido;
 	}
 

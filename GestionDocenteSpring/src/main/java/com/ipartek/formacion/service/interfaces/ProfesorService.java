@@ -5,6 +5,7 @@ import java.util.List;
 import com.ipartek.formacion.dbms.dao.interfaces.ProfesorDAO;
 import com.ipartek.formacion.dbms.persistence.Profesor;
 
+
 public interface ProfesorService {
 
 	public Profesor create(Profesor profesor);
@@ -18,6 +19,10 @@ public interface ProfesorService {
 	public void delete(int codigo);
 	
 	public void setProfesorDao(ProfesorDAO profesorDao);
+
+	boolean profesorDniDuplicado(String dni, int codigo);
+	
+	boolean profesornSSDuplicado(String nSS, int codigo);
 	
 	
 }

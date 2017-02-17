@@ -55,6 +55,17 @@ public class ProfesorServiceImp implements ProfesorService {
 		
 	}
 
+	@Override
+	public boolean profesorDniDuplicado(String dni, int codigo) {
+	 return	profesorDao.profesorDniDuplicado(dni,codigo);
+		
+	}
+	
+	@Override
+	public boolean profesornSSDuplicado(String nSS, int codigo) {
+	 return	profesorDao.profesornSSDuplicado(nSS,codigo);
+		
+	}
 	
 
 

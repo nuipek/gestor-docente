@@ -18,4 +18,6 @@ public interface ClienteService {
 	public void delete(int codigo);
 	
 	public void setClienteDao(ClienteDAO clienteDao);
+	
+	public boolean clienteIdentificativoDuplicado(String identificativo, int codigo);
 }

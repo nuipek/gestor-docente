@@ -51,5 +51,11 @@ public class AlumnoServiceImp implements AlumnoService{
 		
 	}
 
+	@Override
+	public boolean alumnoDniDuplicado(String dni, int codigo) {
+	 return	alumnoDao.alumnoDniDuplicado(dni,codigo);
+		
+	}
+
 	
 }
