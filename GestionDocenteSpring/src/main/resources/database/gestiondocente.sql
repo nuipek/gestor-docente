@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-02-2017 a las 13:27:04
+-- Tiempo de generación: 17-02-2017 a las 13:36:49
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -27,7 +27,17 @@ DELIMITER $$
 -- Procedimientos
 --
 DROP PROCEDURE IF EXISTS `alumnoCreate`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnoCreate`(IN `papellidos` VARCHAR(250), IN `pcodigoPostal` INT(5), IN `pdireccion` VARCHAR(250), IN `pdni` VARCHAR(9), IN `pemail` VARCHAR(150), IN `pfNacimiento` DATE, IN `pnHermanos` INT, IN `pnombre` VARCHAR(50), IN `ppoblacion` VARCHAR(150), IN `ptelefono` INT(9), OUT `pcodigo` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnoCreate`(IN `papellidos` VARCHAR(250), 
+IN `pcodigoPostal` INT(5), 
+IN `pdireccion` VARCHAR(250), 
+IN `pdni` VARCHAR(9), 
+IN `pemail` VARCHAR(150), 
+IN `pfNacimiento` DATE, 
+IN `pnHermanos` INT, 
+IN `pnombre` VARCHAR(50), 
+IN `ppoblacion` VARCHAR(150), 
+IN `ptelefono` INT(9), 
+OUT `pcodigo` INT)
     NO SQL
 BEGIN
 
@@ -56,6 +66,22 @@ SELECT   `codigo`, `nombre`, `apellidos`, `fNacimiento`
 , `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `dni`, `nHermanos`, `activo`
 		
 FROM alumno;
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnogetByDni`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnogetByDni`(IN `pdni` VARCHAR(9), IN `pcodigo` INT, OUT `presultado` INT)
+    NO SQL
+BEGIN
+IF pcodigo != -1
+THEN
+SELECT COUNT(dni) into presultado FROM alumno 
+WHERE dni = LOWER(pdni) AND codigo != pcodigo LIMIT 1;
+ELSE
+SELECT COUNT(dni) into presultado FROM alumno 
+WHERE dni = LOWER(pdni) LIMIT 1;
+END IF;
+
+
 END$$
 
 DROP PROCEDURE IF EXISTS `alumnogetById`$$
@@ -123,6 +149,23 @@ FROM `cliente`
 WHERE codigo = pcodigo;
 END$$
 
+DROP PROCEDURE IF EXISTS `clientegetByIdentificativo`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientegetByIdentificativo`(IN `pidentificativo` VARCHAR(12), IN `pcodigo` INT, OUT `presultado` INT)
+    NO SQL
+BEGIN
+IF pcodigo != -1
+THEN
+SELECT COUNT(identificativo) into presultado FROM cliente 
+WHERE identificativo = LOWER(pidentificativo) AND 
+codigo != pcodigo LIMIT 1;
+ELSE
+SELECT COUNT(identificativo) into presultado FROM cliente 
+WHERE identificativo = LOWER(pidentificativo) LIMIT 1;
+END IF;
+
+
+END$$
+
 DROP PROCEDURE IF EXISTS `clienteUpdate`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clienteUpdate`(IN `pcodigo` INT, IN `pnombre` VARCHAR(50), IN `papellidos` VARCHAR(150), IN `pdireccion` VARCHAR(250), IN `pemail` VARCHAR(100), IN `ptelefono` INT(9), IN `pidentificativo` VARCHAR(12))
     NO SQL
@@ -138,7 +181,7 @@ WHERE codigo = pcodigo;
 END$$
 
 DROP PROCEDURE IF EXISTS `profesorCreate`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `profesorCreate`(IN `pnss` BIGINT(12), IN `pnombre` VARCHAR(50), IN `papellidos` VARCHAR(250), IN `pfNacimiento` DATE, IN `pdni` VARCHAR(9), IN `pdireccion` VARCHAR(250), IN `ppoblacion` VARCHAR(150), IN `pCodigoPostal` INT(5), IN `ptelefono` INT(9), IN `pemail` INT(150), OUT `pcodigo` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesorCreate`(IN `pnss` BIGINT(12), IN `pnombre` VARCHAR(50), IN `papellidos` VARCHAR(250), IN `pfNacimiento` DATE, IN `pdni` VARCHAR(9), IN `pdireccion` VARCHAR(250), IN `ppoblacion` VARCHAR(150), IN `pCodigoPostal` INT(5), IN `ptelefono` INT(9), IN `pemail` VARCHAR(150), OUT `pcodigo` INT)
     NO SQL
 BEGIN
 
@@ -171,6 +214,22 @@ FROM `profesor`;
 
 END$$
 
+DROP PROCEDURE IF EXISTS `profesorgetByDni`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesorgetByDni`(IN `pdni` VARCHAR(9), IN `pcodigo` INT, OUT `presultado` INT)
+    NO SQL
+BEGIN
+
+IF pcodigo != -1
+THEN
+SELECT COUNT(dni) into presultado FROM profesor 
+WHERE dni = LOWER(pdni) AND codigo != pcodigo LIMIT 1;
+ELSE
+SELECT COUNT(dni) into presultado FROM profesor 
+WHERE dni = LOWER(pdni) LIMIT 1;
+END IF;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `profesorgetById`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `profesorgetById`(IN `pcodigo` INT)
     NO SQL
@@ -180,6 +239,20 @@ SELECT `codigo`, `nSS`, `nombre`, `apellidos`, `fNacimiento`, `dni`,            
        `email`, `activo` 
 FROM `profesor` 
 WHERE codigo = pcodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `profesorgetBynSS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesorgetBynSS`(IN `pnSS` BIGINT(12), IN `pcodigo` INT, OUT `presultado` INT)
+    NO SQL
+BEGIN
+
+IF pcodigo != -1 THEN 
+SELECT COUNT(nSS) into presultado FROM profesor 
+WHERE nSS = pnSS AND codigo != pcodigo LIMIT 1; 
+ELSE SELECT COUNT(nSS) into presultado FROM profesor WHERE nSS = pnSS LIMIT 1; 
+END IF; 
+
 
 END$$
 
@@ -208,7 +281,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE IF NOT EXISTS `alumno` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Campo clave de la tabla',
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `fNacimiento` date DEFAULT NULL,
@@ -217,19 +290,20 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `codigoPostal` int(5) DEFAULT NULL,
   `telefono` int(9) NOT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `dni` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
-  `nHermanos` int(2) DEFAULT NULL,
+  `dni` varchar(9) COLLATE utf8_unicode_ci NOT NULL COMMENT 'El Dni es unico.',
+  `nHermanos` int(2) DEFAULT '0',
   `activo` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+  PRIMARY KEY (`codigo`),
+  UNIQUE KEY `dni_UNIQUE` (`dni`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
 INSERT INTO `alumno` (`codigo`, `nombre`, `apellidos`, `fNacimiento`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `dni`, `nHermanos`, `activo`) VALUES
-(1, 'sergio', 'aparicio vega', '1977-12-01', 'tartanga 8f atico a', 'erandiuo', 48950, 944062586, 'coritelsergio@hotmail.com', '44974398z', 3, 1),
-(6, 'sergio', 'aparicio', '1999-02-14', 'tartanga 8f', 'erandio', 48950, 944965217, 'coritelsergio@hotmail.com', '44974398z', 0, 1);
+(1, 'sergio', 'aparicio vegas', '1977-12-01', 'tartanga 8f atico a', 'erandio', 48950, 944062586, 'coritelsergio@hotmail.com', '44974398z', 9, 1),
+(8, 'sergio', 'aparicio', '1999-02-16', 'tartanga 8f', 'erandio', 48950, 944965217, 'coritelsergio@hotmail.com', '30694324l', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -248,15 +322,86 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `identificativo` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
 INSERT INTO `cliente` (`codigo`, `nombre`, `apellidos`, `direccion`, `email`, `telefono`, `identificativo`, `activo`) VALUES
-(1, 'Patxi', 'Patas Cortas', 'Escuela artes y oficios nº11', 'txoripavo@yahoo.es', 0, '30694324L', 1),
-(2, 'Yoni', 'Macarroni', 'Pavo pozo 26, 4A', 'macarroni@hotmail.es', 0, '44974396K', 1);
+(1, 'patxi', 'patas cortas', 'escuela artes y oficios nº11', 'txoripavo@yahoo.es', 944965217, '30694324l', 1),
+(2, 'yoni', 'macarroni', 'pavo pozo 26, 4a', 'macarroni@hotmail.es', 1, '44974396k', 1),
+(4, 'sergio', 'aparicio', 'tartanga 8f', 'coritelsergio@hotmail.com', 944965217, '44974398z', 1),
+(5, 'miliki', 'perez', 'tartanga 8f', 'fasfdfdsfsd@gfdsfgfds.com', 94, 'x1234567890', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `curso`
+--
+
+DROP TABLE IF EXISTS `curso`;
+CREATE TABLE IF NOT EXISTS `curso` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `identificador` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `fInicio` date DEFAULT NULL,
+  `fFin` date DEFAULT NULL,
+  `nHoras` int(4) NOT NULL,
+  `temario` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `curso_modulo`
+--
+
+DROP TABLE IF EXISTS `curso_modulo`;
+CREATE TABLE IF NOT EXISTS `curso_modulo` (
+  `codigo_curso_modulo` int(11) NOT NULL AUTO_INCREMENT,
+  `curso_codigo` int(11) NOT NULL,
+  `modulo_codigo` int(11) NOT NULL,
+  PRIMARY KEY (`codigo_curso_modulo`),
+  UNIQUE KEY `uq_curso_codigo_modulo_codigo` (`curso_codigo`,`modulo_codigo`),
+  KEY `fk_curso_modulo_curso_codigo_idx` (`curso_codigo`),
+  KEY `fk_curso_modulo_modulo_codigo_idx` (`modulo_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+DROP TABLE IF EXISTS `evaluacion`;
+CREATE TABLE IF NOT EXISTS `evaluacion` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `modulo_codigo` int(11) NOT NULL,
+  `alumno_codigo` int(11) NOT NULL,
+  `fExamen` date NOT NULL,
+  `nota` int(11) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  UNIQUE KEY `uq_modulo_codigo_alumno_codigo` (`modulo_codigo`,`alumno_codigo`),
+  KEY `fk_alumno_idx` (`alumno_codigo`),
+  KEY `fk_modulo_idx` (`modulo_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Evaluacion de la notas de los alumnos para cada modulo' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulo`
+--
+
+DROP TABLE IF EXISTS `modulo`;
+CREATE TABLE IF NOT EXISTS `modulo` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nHoras` int(3) NOT NULL,
+  `descripcion` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -286,8 +431,27 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 --
 
 INSERT INTO `profesor` (`codigo`, `nSS`, `nombre`, `apellidos`, `fNacimiento`, `dni`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `activo`) VALUES
-(1, 123456789321, 'Consuelo', 'Mejia Aranzabal', '1919-02-04', '30694324L', 'Tartanga 8F', 'Erandio', 48950, 664384071, 'sapariciov@hotmail.com', 1),
-(2, 987654321123, 'Malika', 'Snow Zalabarria', '1994-05-05', '45678932V', 'Hidden Hills SN', 'Calabasas', 20001, 607118343, 'malika@correo.com', 1);
+(1, 987654321124, 'consuelo', 'mejia aranzabal', '1999-02-17', '30694324l', 'tartanga 8f ', 'erandio', 48950, 664384071, 'sapariciov@hotmail.com', 1),
+(2, 987654321123, 'malika', 'snow zalabarria ', '1999-02-17', '44974398z', 'hidden hills', 'calabasas', 20001, 607118343, 'malika@correo.com', 1),
+(3, 987654321125, 'sergio', 'aparicio', '1999-02-17', '14378424c', 'tartanga 8f', 'erandio', 0, 944965217, 'coritelsergio@hotmail.com', 1);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `curso_modulo`
+--
+ALTER TABLE `curso_modulo`
+  ADD CONSTRAINT `fk_curso_modulo_curso_codigo` FOREIGN KEY (`curso_codigo`) REFERENCES `curso` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_curso_modulo_modulo_codigo` FOREIGN KEY (`modulo_codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `evaluacion`
+--
+ALTER TABLE `evaluacion`
+  ADD CONSTRAINT `fk_evaluacion_alumno_codigo` FOREIGN KEY (`alumno_codigo`) REFERENCES `alumno` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_evaluacion_modulo_codigo` FOREIGN KEY (`modulo_codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
