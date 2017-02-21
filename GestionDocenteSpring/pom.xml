@@ -21,15 +21,21 @@
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<!--  Añadimos al proyecto Spring la dependencia del nuevo proyecto JPA para poder acceder a sus clases -->
+      	<groupId>com.ipartek.formacion</groupId>
+         <artifactId>gestion-docente-common</artifactId>
+         <version>1.0.0-SNAPSHOT</version>
+         <scope>provided</scope>
+       </dependency>
 		<!--  https://common -->
-<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
-<dependency>
-    <groupId>commons-beanutils</groupId>
-    <artifactId>commons-beanutils</artifactId>
-    <version>${commons-beanutils.version}</version>
-</dependency>
-
-		<!-- Spring -->
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+    		<groupId>commons-beanutils</groupId>
+    		<artifactId>commons-beanutils</artifactId>
+    		<version>${commons-beanutils.version}</version>
+		</dependency>
+			<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>

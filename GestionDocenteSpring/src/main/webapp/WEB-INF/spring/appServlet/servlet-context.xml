@@ -44,7 +44,7 @@
 	
 	
 	<!-- Carga los ficheros de properties de constantes  -->
-	<context:property-placeholder location="classpath*:/constantes/constantes.properties"/>
+	<context:property-placeholder location="classpath:/constantes/constantes.properties"/>
 
 	
 	
