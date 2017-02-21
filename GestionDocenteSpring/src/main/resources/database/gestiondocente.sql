@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2017 a las 13:36:49
+-- Tiempo de generación: 21-02-2017 a las 10:00:11
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -166,6 +166,24 @@ END IF;
 
 END$$
 
+DROP PROCEDURE IF EXISTS `clienteInforme`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clienteInforme`(IN pcodigo INT)
+BEGIN
+
+SELECT c.codigo, c.nombre, c.email, c.telefono, c.direccion, c.poblacion, 
+       c.codigoPostal, c.identificativo, c.activo,
+       cu.codigo as codigocurso,cu.nombre as nombrecurso, cu.identificador as identificadorcurso,
+       cu.finicio, cu.ffin,cu.nhoras,SUM(i.precio) as preciocurso
+FROM   cliente as c 
+       LEFT JOIN curso as cu ON cu.cliente_codigo = c.codigo
+	   INNER JOIN curso_modulo as cm ON cm.curso_codigo = cu.codigo
+       INNER JOIN imparticion as i ON i.curso_modulo_codigo = cm.codigo_curso_modulo
+WHERE  c.codigo = pcodigo;
+/*GROUP BY cm.curso_codigo;*/
+
+
+END$$
+
 DROP PROCEDURE IF EXISTS `clienteUpdate`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clienteUpdate`(IN `pcodigo` INT, IN `pnombre` VARCHAR(50), IN `papellidos` VARCHAR(150), IN `pdireccion` VARCHAR(250), IN `pemail` VARCHAR(100), IN `ptelefono` INT(9), IN `pidentificativo` VARCHAR(12))
     NO SQL
@@ -302,8 +320,25 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 --
 
 INSERT INTO `alumno` (`codigo`, `nombre`, `apellidos`, `fNacimiento`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `dni`, `nHermanos`, `activo`) VALUES
+(0, 'alumno', 'sin asignar', NULL, NULL, NULL, NULL, 0, '', '00000000', 0, 1),
 (1, 'sergio', 'aparicio vegas', '1977-12-01', 'tartanga 8f atico a', 'erandio', 48950, 944062586, 'coritelsergio@hotmail.com', '44974398z', 9, 1),
 (8, 'sergio', 'aparicio', '1999-02-16', 'tartanga 8f', 'erandio', 48950, 944965217, 'coritelsergio@hotmail.com', '30694324l', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asistente`
+--
+
+DROP TABLE IF EXISTS `asistente`;
+CREATE TABLE IF NOT EXISTS `asistente` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `alumno_codigo` int(11) DEFAULT NULL,
+  `imparticion_codigo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_asistente_alumno_codigo_idx` (`alumno_codigo`),
+  KEY `fk_asistente_imparticion_codigo_idx` (`imparticion_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -317,6 +352,8 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `direccion` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codigoPostal` int(5) unsigned zerofill DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `telefono` int(9) NOT NULL,
   `identificativo` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
@@ -328,11 +365,11 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`codigo`, `nombre`, `apellidos`, `direccion`, `email`, `telefono`, `identificativo`, `activo`) VALUES
-(1, 'patxi', 'patas cortas', 'escuela artes y oficios nº11', 'txoripavo@yahoo.es', 944965217, '30694324l', 1),
-(2, 'yoni', 'macarroni', 'pavo pozo 26, 4a', 'macarroni@hotmail.es', 1, '44974396k', 1),
-(4, 'sergio', 'aparicio', 'tartanga 8f', 'coritelsergio@hotmail.com', 944965217, '44974398z', 1),
-(5, 'miliki', 'perez', 'tartanga 8f', 'fasfdfdsfsd@gfdsfgfds.com', 94, 'x1234567890', 1);
+INSERT INTO `cliente` (`codigo`, `nombre`, `apellidos`, `direccion`, `poblacion`, `codigoPostal`, `email`, `telefono`, `identificativo`, `activo`) VALUES
+(1, 'patxi', 'patas cortas', 'escuela artes y oficios nº11', NULL, NULL, 'txoripavo@yahoo.es', 944965217, '30694324l', 1),
+(2, 'yoni', 'macarroni', 'pavo pozo 26, 4a', NULL, NULL, 'macarroni@hotmail.es', 1, '44974396k', 1),
+(4, 'sergio', 'aparicio', 'tartanga 8f', NULL, NULL, 'coritelsergio@hotmail.com', 944965217, '44974398z', 1),
+(5, 'miliki', 'perez', 'tartanga 8f', NULL, NULL, 'fasfdfdsfsd@gfdsfgfds.com', 94, 'x1234567890', 1);
 
 -- --------------------------------------------------------
 
@@ -349,24 +386,31 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `fFin` date DEFAULT NULL,
   `nHoras` int(4) NOT NULL,
   `temario` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
+  `activo` tinyint(1) NOT NULL DEFAULT '1',
+  `cliente_codigo` int(11) DEFAULT NULL,
+  `precio` double(8,2) DEFAULT '0.00',
+  PRIMARY KEY (`codigo`),
+  KEY `fk_curso_cliente_codigo_idx` (`cliente_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `curso_modulo`
+-- Estructura de tabla para la tabla `curso_detalle`
 --
 
-DROP TABLE IF EXISTS `curso_modulo`;
-CREATE TABLE IF NOT EXISTS `curso_modulo` (
-  `codigo_curso_modulo` int(11) NOT NULL AUTO_INCREMENT,
-  `curso_codigo` int(11) NOT NULL,
-  `modulo_codigo` int(11) NOT NULL,
-  PRIMARY KEY (`codigo_curso_modulo`),
+DROP TABLE IF EXISTS `curso_detalle`;
+CREATE TABLE IF NOT EXISTS `curso_detalle` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `fInicio` date DEFAULT NULL,
+  `fFin` date DEFAULT NULL,
+  `Precio` double(7,2) DEFAULT '0.00',
+  `curso_codigo` int(11) DEFAULT NULL,
+  `modulo_codigo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
   UNIQUE KEY `uq_curso_codigo_modulo_codigo` (`curso_codigo`,`modulo_codigo`),
-  KEY `fk_curso_modulo_curso_codigo_idx` (`curso_codigo`),
-  KEY `fk_curso_modulo_modulo_codigo_idx` (`modulo_codigo`)
+  KEY `fk_curso_detalle_curso_codigo_idx` (`curso_codigo`),
+  KEY `fk_curso_detalle_modulo_codigo_idx` (`modulo_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -378,15 +422,30 @@ CREATE TABLE IF NOT EXISTS `curso_modulo` (
 DROP TABLE IF EXISTS `evaluacion`;
 CREATE TABLE IF NOT EXISTS `evaluacion` (
   `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `modulo_codigo` int(11) NOT NULL,
+  `imparticion_codigo` int(11) NOT NULL,
   `alumno_codigo` int(11) NOT NULL,
   `fExamen` date NOT NULL,
   `nota` int(11) NOT NULL,
   PRIMARY KEY (`codigo`),
-  UNIQUE KEY `uq_modulo_codigo_alumno_codigo` (`modulo_codigo`,`alumno_codigo`),
   KEY `fk_alumno_idx` (`alumno_codigo`),
-  KEY `fk_modulo_idx` (`modulo_codigo`)
+  KEY `fk_imparticion_idx` (`imparticion_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Evaluacion de la notas de los alumnos para cada modulo' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imparticion`
+--
+
+DROP TABLE IF EXISTS `imparticion`;
+CREATE TABLE IF NOT EXISTS `imparticion` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `curso_detalle_codigo` int(11) DEFAULT NULL,
+  `profesor_codigo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_imparticion_curso_detalle_idx` (`curso_detalle_codigo`),
+  KEY `fk_imparticion_profesor_codigo_idx` (`profesor_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -419,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `dni` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `codigoPostal` int(5) DEFAULT NULL,
+  `codigoPostal` int(5) unsigned zerofill DEFAULT NULL,
   `telefono` int(9) NOT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
@@ -431,27 +490,48 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 --
 
 INSERT INTO `profesor` (`codigo`, `nSS`, `nombre`, `apellidos`, `fNacimiento`, `dni`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `email`, `activo`) VALUES
+(0, 0, 'profesor', 'sin asignar', NULL, '000000000', NULL, NULL, NULL, 0, '', 1),
 (1, 987654321124, 'consuelo', 'mejia aranzabal', '1999-02-17', '30694324l', 'tartanga 8f ', 'erandio', 48950, 664384071, 'sapariciov@hotmail.com', 1),
 (2, 987654321123, 'malika', 'snow zalabarria ', '1999-02-17', '44974398z', 'hidden hills', 'calabasas', 20001, 607118343, 'malika@correo.com', 1),
-(3, 987654321125, 'sergio', 'aparicio', '1999-02-17', '14378424c', 'tartanga 8f', 'erandio', 0, 944965217, 'coritelsergio@hotmail.com', 1);
+(3, 987654321125, 'sergio', 'aparicio', '1999-02-17', '14378424c', 'tartanga 8f', 'erandio', 00000, 944965217, 'coritelsergio@hotmail.com', 1);
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `curso_modulo`
+-- Filtros para la tabla `asistente`
 --
-ALTER TABLE `curso_modulo`
-  ADD CONSTRAINT `fk_curso_modulo_curso_codigo` FOREIGN KEY (`curso_codigo`) REFERENCES `curso` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_curso_modulo_modulo_codigo` FOREIGN KEY (`modulo_codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `asistente`
+  ADD CONSTRAINT `fk_asistente_alumno_codigo` FOREIGN KEY (`alumno_codigo`) REFERENCES `alumno` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_asistente_imparticion_codigo` FOREIGN KEY (`imparticion_codigo`) REFERENCES `imparticion` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `curso`
+--
+ALTER TABLE `curso`
+  ADD CONSTRAINT `fk_curso_cliente_codigo` FOREIGN KEY (`cliente_codigo`) REFERENCES `cliente` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `curso_detalle`
+--
+ALTER TABLE `curso_detalle`
+  ADD CONSTRAINT `fk_curso_detalle_curso_codigo` FOREIGN KEY (`curso_codigo`) REFERENCES `curso` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_curso_detalle_modulo_codigo` FOREIGN KEY (`modulo_codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `evaluacion`
 --
 ALTER TABLE `evaluacion`
   ADD CONSTRAINT `fk_evaluacion_alumno_codigo` FOREIGN KEY (`alumno_codigo`) REFERENCES `alumno` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_evaluacion_modulo_codigo` FOREIGN KEY (`modulo_codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_evaluacion_imparticion_codigo` FOREIGN KEY (`imparticion_codigo`) REFERENCES `imparticion` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `imparticion`
+--
+ALTER TABLE `imparticion`
+  ADD CONSTRAINT `fk_imparticion_curso_detalle_codigo` FOREIGN KEY (`curso_detalle_codigo`) REFERENCES `curso_detalle` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_imparticion_profesor_codigo` FOREIGN KEY (`profesor_codigo`) REFERENCES `profesor` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
