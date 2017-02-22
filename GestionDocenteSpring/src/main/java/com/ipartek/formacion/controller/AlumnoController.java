@@ -31,7 +31,7 @@ import com.ipartek.formacion.service.interfaces.AlumnoService;
 @RequestMapping(value="/alumnos")
 public class AlumnoController {
 	
-	private int prueba;
+	
 	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
 	private ModelAndView mav = null;
 	
