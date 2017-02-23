@@ -58,4 +58,10 @@ public class ClienteServiceImp implements ClienteService {
 		return clienteDao.clienteIdentificativoDuplicado(identificativo, codigo);
 	}
 
+	@Override
+	public Cliente getInforme(int codigo) {
+				
+		return clienteDao.getInforme(codigo);
+	}
+
 }

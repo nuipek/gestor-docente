@@ -6,7 +6,6 @@
 <c:set scope="request" var="seccion" value="${seccion}"/>
 <jsp:include page="../includes/header.jsp" />
 <main>
-<main>
 <a href="<c:url value='/clientes/addCliente'/>">Crear Cliente</a>
 <table>
 	<thead>

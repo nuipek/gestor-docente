@@ -20,4 +20,6 @@ public interface ClienteService {
 	public void setClienteDao(ClienteDAO clienteDao);
 	
 	public boolean clienteIdentificativoDuplicado(String identificativo, int codigo);
+	
+	public Cliente getInforme(int codigo);
 }

@@ -20,6 +20,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
+import com.ipartek.formacion.dbms.mappers.ClienteExtractor;
 import com.ipartek.formacion.dbms.mappers.ClienteMapper;
 import com.ipartek.formacion.dbms.mappers.ProfesorMapper;
 import com.ipartek.formacion.dbms.persistence.Cliente;
@@ -197,6 +198,24 @@ public class ClienteDAOImp implements ClienteDAO {
 		else return false;
 
 		
+	}
+
+	@Override
+	public Cliente getInforme(int codigo) {
+		final String SQL = "call clienteInforme(?);";
+		
+		Cliente cliente=null;
+		try{
+			Map<Long,Cliente>clientes = template.query(SQL, new ClienteExtractor(),new Object[]{codigo});
+			cliente = clientes.get(codigo);
+			
+		}catch(EmptyResultDataAccessException e){
+			logger.info("Sin datos para el codigo " + codigo + " " + e.getMessage());
+		}
+		catch (Exception e){
+			logger.error("Error al ejecutar el clienteInforme con codigo:" + codigo + " " + e.getMessage() );
+		}
+		return cliente;
 	}
 
 }

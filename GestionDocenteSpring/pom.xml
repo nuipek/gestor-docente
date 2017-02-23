@@ -26,7 +26,7 @@
       	<groupId>com.ipartek.formacion</groupId>
          <artifactId>gestion-docente-common</artifactId>
          <version>1.0.0-SNAPSHOT</version>
-         <scope>provided</scope>
+         <scope>compile</scope>
        </dependency>
 		<!--  https://common -->
 		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->

@@ -40,7 +40,7 @@
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
     
-    <jee:jndi-lookup id="jpaDatasource" jndi-name="java:/GestionDocente" />
+   <!--   <jee:jndi-lookup id="jpaDatasource" jndi-name="java:/GestionDocente" /> -->
     
     
    
