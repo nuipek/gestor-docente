@@ -2,65 +2,71 @@ package com.ipartek.formacion.dbms.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.ipartek.formacion.dbms.persistence.Cliente;
 import com.ipartek.formacion.persistence.Curso;
 
-public class ClienteExtractor implements ResultSetExtractor<Map<Long,Cliente>>{
+public class ClienteExtractor implements ResultSetExtractor<Map<Integer, Cliente>> {
+	private final static Logger LOGGER = LoggerFactory.getLogger(ClienteExtractor.class);
 
 	@Override
-	public Map<Long,Cliente> extractData(ResultSet rs) throws SQLException, DataAccessException {
-		Map<Long,Cliente>clientes = new HashMap<Long,Cliente>();
-		
-		while(rs.next())
-		{
-			// recogemos el codigo del cliente del resultset
-			long codigo = rs.getLong("codigo");
-			//Recogemos el cliente del mapa para comprobar si ya existe
+	public Map<Integer, Cliente> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		Map<Integer, Cliente> clientes = new HashMap<Integer, Cliente>();
+		// Map<Long, Curso> cursos = null;
+		while (rs.next()) {
+			// recogemos el codigo de cliente
+			int codigo = rs.getInt("codigo");
+			// recogemos el cliente del mapa
 			Cliente cliente = clientes.get(codigo);
-			
-			
-			if(cliente == null){
+
+			if (cliente == null) {// si el cliente no esta en el mapa
 				cliente = new Cliente();
-				cliente.setCodigo(rs.getInt("codigo"));
 				cliente.setNombre(rs.getString("nombre"));
-				cliente.setApellidos(rs.getString("apellidos"));
+				cliente.setIdentificativo(rs.getString("identificador"));
+				cliente.setCodigoPostal(rs.getInt("codigopostal"));
 				cliente.setDireccion(rs.getString("direccion"));
-				cliente.setTelefono(String.valueOf(rs.getInt("telefono")));
 				cliente.setEmail(rs.getString("email"));
-				cliente.setIdentificativo(rs.getString("identificativo"));
+				cliente.setPoblacion(rs.getString("poblacion"));
+				cliente.setTelefono(String.valueOf(rs.getInt("telefono")));
 				cliente.setActivo(rs.getBoolean("activo"));
-				
-				// Si no existe el cliente creamos el primer mapa
-				cliente.setCursos(new HashMap<Long,Curso>());
+				cliente.setCodigo(rs.getInt("codigo"));
+				// cliente.setCursos();
+				clientes.put(cliente.getCodigo(), cliente);
 			}
-			
-			// Aqui es donde cargamos el mapa de cursos
-			Map<Long,Curso> cursos = cliente.getCursos();
-			
-			Curso curso = new Curso();
-			curso.setCodigo(rs.getLong("codigocurso"));
-			curso.setNombre(rs.getString("nombrecurso"));
-			curso.setfInicio(rs.getDate("finicio"));
-			curso.setfInicio(rs.getDate("ffin"));
-			curso.setnHoras(rs.getInt("nhoras"));
-			curso.setIdentificador(rs.getString("identificadorcurso"));
-			curso.setPrecio(rs.getDouble("precio"));
-	
-			cursos.put(curso.getCodigo(),curso);
-			
-			cliente.setCursos(cursos);
-			clientes.put(codigo, cliente);
+			// aqui es donde cargamos el mapa de cursos
+			// cursos = cliente.getCursos();
+			Long cCurso = rs.getLong("codigocurso");
+			LOGGER.info("nº cursos1: " + cliente.getCursos().size());
+			if (cCurso != null) {
+				Curso curso = new Curso();
+				curso.setCodigo(rs.getLong("codigocurso"));
+				curso.setNombre(rs.getString("nombrecurso"));
+				curso.setIdentificador(rs.getString("identificador"));
+				curso.setfInicio(rs.getDate("finicio"));
+				curso.setfFin(rs.getDate("ffin"));
+				curso.setnHoras(rs.getInt("nhoras"));
+				cliente.getCursos().put(cCurso, curso);
+			}
+			LOGGER.info("nº cursos2: " + cliente.getCursos().size());
+
+			// guardas el curso en el mapa
+			// cursos.put(curso.getCodigo(), curso);
+			// cuardas el mapa en el cliente
+			// cliente.setCursos(cursos);
+
+			// cliente.getCursos().put(curso.getCodigo(), curso);
+
+			// guardas el cliente en su mapa
+
 		}
-		
-		
+
 		return clientes;
 	}
 

@@ -204,17 +204,28 @@ public class ClienteDAOImp implements ClienteDAO {
 	public Cliente getInforme(int codigo) {
 		final String SQL = "call clienteInforme(?);";
 		
+		Long codigoLong = 0L;
+	
 		Cliente cliente=null;
+		
 		try{
-			Map<Long,Cliente>clientes = template.query(SQL, new ClienteExtractor(),new Object[]{codigo});
+			Map<Integer,Cliente>clientes = template.query(SQL, new ClienteExtractor(),new Object[]{codigo});
+			
+			int valor = clientes.size();
+			logger.info(Integer.toString(valor));
+			
 			cliente = clientes.get(codigo);
+			logger.info(cliente.toString());
 			
 		}catch(EmptyResultDataAccessException e){
+			
 			logger.info("Sin datos para el codigo " + codigo + " " + e.getMessage());
 		}
 		catch (Exception e){
+			
 			logger.error("Error al ejecutar el clienteInforme con codigo:" + codigo + " " + e.getMessage() );
 		}
+	
 		return cliente;
 	}
 

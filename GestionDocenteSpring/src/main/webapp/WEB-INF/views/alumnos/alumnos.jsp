@@ -13,6 +13,8 @@
 			<th>Nombre</th>
 			<th>Apellidos</th>
 			<th>Editar</th>
+			<th>Borrar</th>
+			<th>Informe</th>
 		</tr>
 	</thead>
 <tbody>		
@@ -23,8 +25,9 @@
 		 	<td>${alumno.nombre}</td> 
 		 	<td>${alumno.apellidos}</td> 
 		 	<td>
-		 		<a href="alumnos/${alumno.codigo}">Editar</a>
-		 		<a href="alumnos/deleteAlumno/${alumno.codigo}">Borrar</a>
+		 		<a href="<c:url value='alumnos/${alumno.codigo}'/>">Editar</a>
+		 		<a href="<c:url value='alumnos/deleteAlumno/${alumno.codigo}'/>">Borrar</a>
+		 		<a href="<c:url value='/alumnos/informeAlumno/${alumno.codigo}'/>">Informe</a>
 		 	</td>
 		 </tr>
 		</c:forEach>

@@ -69,11 +69,22 @@ public class ClienteController {
 	@RequestMapping(value="/{codigo}")
 	public ModelAndView getById(@PathVariable("codigo") int codigo)
 	{
-		
+	
 		mav = new ModelAndView("clientes/cliente");
 		mav.addObject("cliente", cS.getById(codigo));
 		//model.addAttribute("cliente",cS.getById(codigo));
 		mav.setViewName("clientes/cliente");
+		return mav;
+	}
+	
+	@RequestMapping(value="/informeCliente/{codigo}")
+	public ModelAndView verInforme(@PathVariable("codigo") int codigo)
+	{   ModelAndView mav = new ModelAndView("clientes/informe");
+	logger.info("Aqui informeCliente");
+	   //model.addAttribute(cS.getInforme(codigo));
+	   Cliente cliente = cS.getInforme(codigo);
+	   logger.info(cliente.toString());
+		mav.addObject("cliente",cliente);
 		return mav;
 	}
 	

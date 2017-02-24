@@ -2,6 +2,7 @@ package com.ipartek.formacion.dbms.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -19,6 +20,8 @@ public class Cliente implements Serializable,Comparable<Cliente> {
 	private String email;
 	private String identificativo;
 	private boolean activo;
+	private int codigoPostal;
+	private String poblacion;
 	
 	private Map<Long,com.ipartek.formacion.persistence.Curso> cursos;
 	
@@ -43,13 +46,43 @@ public class Cliente implements Serializable,Comparable<Cliente> {
 		this.telefono="94";
 		
 		this.cursos = null;
-		
+		this.codigoPostal = 0;
+		this.poblacion="";
+		cursos = new HashMap<Long, com.ipartek.formacion.persistence.Curso>();
 		
 	}
 
 
 	
 	
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
+
+
+
+
+	public void setCodigoPostal(int codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+
+
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+
+
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+
+
+
 	public int getCodigo() {
 		return codigo;
 	}

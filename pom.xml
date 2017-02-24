@@ -8,6 +8,8 @@
   <modules>
   	<module>GestionDocenteSpring</module>
   	<module>gestion-docente-common</module>
+  	<module>gestion-docente-ejb</module>
+  	<module>gestion-docente-ear</module>
   </modules>
   <properties>
   	<java-version>1.6</java-version>

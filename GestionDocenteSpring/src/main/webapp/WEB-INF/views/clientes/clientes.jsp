@@ -13,6 +13,7 @@
 			<th>Nombre</th>
 			<th>Apellidos</th>
 			<th>Editar</th>
+			<th>Informe</th>
 		</tr>
 	</thead>
 <tbody>		
@@ -25,6 +26,7 @@
 		 	<td>
 		 		<a href="<c:url value='/clientes/${cliente.codigo}'/>">Editar</a>
 				<a href="<c:url value='/clientes/deleteCliente/${cliente.codigo}'/>">Borrar</a>
+				<a href="<c:url value='/clientes/informeCliente/${cliente.codigo}'/>">Informe</a>
 		 	</td>
 		 </tr>
 		</c:forEach>
