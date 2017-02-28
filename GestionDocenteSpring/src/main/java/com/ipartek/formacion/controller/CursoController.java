@@ -18,6 +18,7 @@ public class CursoController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getAll(Model model){
+		System.out.println(cS.getAll().size());
 		model.addAttribute("listadocursos",cS.getAll());
 		return "cursos/cursos";
 	}

@@ -6,8 +6,9 @@
 <c:set scope="request" var="seccion" value="listado de cursos"/>
 <jsp:include page="../includes/header.jsp" />
 <main>
-	<c:forEach var="curso" items="${listadoCursos}">
+	<c:forEach var="curso" items="${listadocursos}">
 		<div>
+		   hola
 			<a href="<c:url value='/cursos/${curso.codigo}'/>">${curso.nombre}</a>
 			${curso.fInicio}
 			${curso.fFin}
