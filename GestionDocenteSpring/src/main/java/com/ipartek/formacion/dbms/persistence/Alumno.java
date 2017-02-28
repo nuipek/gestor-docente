@@ -1,8 +1,10 @@
 package com.ipartek.formacion.dbms.persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +43,8 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	private int codigo;
 	private boolean activo;
 	private int nHermanos;
+	
+	private List<com.ipartek.formacion.persistence.Curso> cursos;
 
 	public Alumno() {
 		super();// constructor de la clase padre
@@ -64,6 +68,8 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		this.telefono="94";
 		
 		this.sessionId = "";
+		
+		this.cursos = new ArrayList<com.ipartek.formacion.persistence.Curso>();
 		
 		
 
@@ -133,20 +139,18 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		return this.getApellidos().compareToIgnoreCase(o.getApellidos());
 	}
 
-	/**
-	 * Para evaluar si los objetos son iguales
-	 */
-
 	@Override
 	public boolean equals(Object obj) {
-		boolean iguales = false;
-		if (obj instanceof Alumno) {
-			Alumno alum = (Alumno) obj;
-			if (this.codigo == alum.getCodigo()) {
-				iguales = true;
-			}
-		}
-		return iguales;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Alumno other = (Alumno) obj;
+		if (codigo != other.codigo)
+			return false;
+		return true;
 	}
 	
 	public String getEmail() {
@@ -224,5 +228,22 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigo;
+		return result;
+	}
+
+	public List<com.ipartek.formacion.persistence.Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<com.ipartek.formacion.persistence.Curso> cursos) {
+		this.cursos = cursos;
+	}
+	
 
 }

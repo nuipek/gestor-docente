@@ -19,12 +19,21 @@
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<artifact.jar>gestion-docente-common</artifact.jar>
+		<artifact.ejb>gestion-docente-ejb</artifact.ejb>
 	</properties>
 	<dependencies>
 		<dependency>
 			<!--  Añadimos al proyecto Spring la dependencia del nuevo proyecto JPA para poder acceder a sus clases -->
       	<groupId>com.ipartek.formacion</groupId>
-         <artifactId>gestion-docente-common</artifactId>
+         <artifactId>${artifact.jar}</artifactId>
+         <version>1.0.0-SNAPSHOT</version>
+         <scope>compile</scope>
+       </dependency>
+       <dependency>
+			<!--  Añadimos al proyecto Spring la dependencia del nuevo proyecto EJB para poder acceder a sus clases -->
+      	<groupId>com.ipartek.formacion</groupId>
+         <artifactId>${artifact.ejb}</artifactId>
          <version>1.0.0-SNAPSHOT</version>
          <scope>compile</scope>
        </dependency>

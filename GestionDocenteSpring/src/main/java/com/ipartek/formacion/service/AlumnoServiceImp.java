@@ -57,5 +57,10 @@ public class AlumnoServiceImp implements AlumnoService{
 		
 	}
 
+	@Override
+	public Alumno getInforme(int codigo) {
+		return alumnoDao.getInforme(codigo);
+	}
+
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
+import com.ipartek.formacion.dbms.mappers.AlumnoExtractor;
 import com.ipartek.formacion.dbms.mappers.AlumnoMapper;
 import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.dbms.persistence.Profesor;
@@ -48,6 +49,9 @@ public class AlumnoDAOImp implements AlumnoDAO {
 	private String sqlDelete;
 	@Value("${alumno.getByDni}")
 	private String sqlgetByDni;
+	
+	@Value("${alumno.getInforme}")
+	private String sqlgetInforme;
 
 	@Autowired // igual a @inject
 	@Override
@@ -205,6 +209,26 @@ public class AlumnoDAOImp implements AlumnoDAO {
 		if (total > 0) return true;
 		else return false;
 
+	}
+
+	@Override
+	public Alumno getInforme(int codigo) {
+		final String SQL = sqlgetInforme;
+		Alumno alumno = null;
+		
+		try{
+			
+			List<Alumno> alumnos = template.query(SQL, new AlumnoExtractor(), new Object[]{codigo});
+			alumno = alumnos.get(0);
+			
+		}catch (EmptyResultDataAccessException e){
+			logger.info("No hay datos para el alumno seleccionado " + e.getMessage());
+		} catch (Exception e){
+			logger.error("Error al ejecutar el procedimiento alumnoInforme con codigo  "  + codigo + " " + e.getMessage() );
+		}
+		
+		return alumno;
+	
 	}
 
 }

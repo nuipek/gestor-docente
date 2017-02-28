@@ -60,6 +60,19 @@ public class AlumnoController {
 		return mav; 
 	}
 	
+	@RequestMapping (value="/informeAlumno/{id}")
+	public ModelAndView getInforme(@PathVariable("id") int codigo){
+		ModelAndView mav = new ModelAndView("alumnos/informe");
+		
+		Alumno alumno = aS.getInforme(codigo);
+		logger.info(alumno.toString());
+		
+		//System.out.println(alumno.getCursos().size());
+		
+		mav.addObject("alumno", alumno );
+		return mav;
+	}
+	
 	@RequestMapping(value="/deleteAlumno/{id}")
 	public String  deleteAlumno(@PathVariable("id") int codigo)
 	{

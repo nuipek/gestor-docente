@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
@@ -13,7 +14,7 @@ import com.ipartek.formacion.service.interfaces.ClienteService;
 @Service
 public class ClienteServiceImp implements ClienteService {
 
-	@Inject
+	@Autowired
     ClienteDAO clienteDao;
 
 	@Override

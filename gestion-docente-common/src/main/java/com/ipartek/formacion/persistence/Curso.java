@@ -5,9 +5,14 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="curso")
-public class Curso implements Serializable {
+@Table(name = "curso") // Marcamos el Nombre de la tabla
+@Entity(name="curso") // Marcamos el nombre de la clase
+@NamedQueries({
+	@NamedQuery(name = "curso.getall", query = "SELECT c FROM curso c" )
+})
+	
+
+public class Curso implements Serializable{
 
 	/**
 	 * 

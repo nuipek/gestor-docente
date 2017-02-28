@@ -29,10 +29,10 @@
 				<c:forEach var="curso" items="${alumno.cursos}">
 				<tbody>
 					<tr>
-						<td>${curso.value.identificador}</td>
-						<td>${curso.value.nombre}</td>
-						<td>${curso.value.nHoras}</td>
-						<td>${curso.value.precio}</td>
+						<td>${curso.identificador}</td>
+						<td>${curso.nombre}</td>
+						<td>${curso.nHoras}</td>
+						<td>${curso.precio}</td>
 					</tr>
 				</tbody>
 				

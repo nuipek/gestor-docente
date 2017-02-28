@@ -17,6 +17,7 @@
 			<li><a href="<c:url value='/alumnos'/>"><spring:message code="menu.alumnos" text="G. Alumnos" /></a>	</li>
 			<li><a href="<c:url value='/profesores'/>"><spring:message code="menu.profesores" text="G. Profesores" /></a></li>
 			<li><a href="<c:url value='/clientes'/>"><spring:message code="menu.clientes" text="G. Clientes" /></a></li>
+			<li><a href="<c:url value='/cursos'/>"><spring:message code="menu.cursos" text="G. Cursos" /></a></li>
 		</ul>
 	</nav>
 	<a href="?locale=es">				

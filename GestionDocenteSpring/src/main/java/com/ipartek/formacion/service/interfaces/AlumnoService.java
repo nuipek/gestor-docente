@@ -21,4 +21,7 @@ public interface AlumnoService {
 	
 	public boolean alumnoDniDuplicado(String dni, int codigo);
 	
+	
+	public Alumno getInforme(int codigo);
+	
 }

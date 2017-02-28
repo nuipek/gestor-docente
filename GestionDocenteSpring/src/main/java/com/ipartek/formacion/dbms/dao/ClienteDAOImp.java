@@ -28,7 +28,8 @@ import com.ipartek.formacion.dbms.persistence.Profesor;
 
 @Repository("clienteDaoImp")
 public class ClienteDAOImp implements ClienteDAO {
-	@Inject
+	
+	@Autowired
 	private DataSource dataSource;
 	private JdbcTemplate template;
 	private SimpleJdbcCall jdbcCall;
