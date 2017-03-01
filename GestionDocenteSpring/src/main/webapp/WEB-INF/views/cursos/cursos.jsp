@@ -8,7 +8,6 @@
 <main>
 	<c:forEach var="curso" items="${listadocursos}">
 		<div>
-		   hola
 			<a href="<c:url value='/cursos/${curso.codigo}'/>">${curso.nombre}</a>
 			${curso.fInicio}
 			${curso.fFin}

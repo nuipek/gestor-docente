@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -28,7 +28,7 @@ import com.ipartek.formacion.dbms.persistence.Profesor;
 public class AlumnoDAOImp implements AlumnoDAO {
 	
     @SuppressWarnings("unused")
-	@Autowired
+	@Resource(name="mysqlDataSource")
 	private DataSource dataSource;
 	private JdbcTemplate template;
 	private SimpleJdbcCall jdbcCall;
