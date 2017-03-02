@@ -1,6 +1,7 @@
 package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "modulo")
-public class Modulo implements Serializable{
+public class Modulo implements Serializable,Comparable{
 	
 	 /**
 	 * 
@@ -24,20 +25,15 @@ public class Modulo implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="codigo")
 	private long codigo;
-	
-	@Override
-	public String toString() {
-		return "Modulo [codigo=" + codigo + ", nombre=" + nombre + ", nHoras=" + nHoras + ", descripcion=" + descripcion
-				+ ", precio=" + precio + "]";
-	}
-	
+		
 	@Column(name ="nombre") // se pone cuando la columna de la clase no coincide con el de la tabla
 	private String nombre;
 	private int nHoras;
 	private String descripcion;
 	private double precio;
 	
-	//@ManyToMany	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "modulo")
+	private Set<CursoDetalle> detalle;
 	
 	public long getCodigo() {
 		return codigo;
@@ -71,8 +67,12 @@ public class Modulo implements Serializable{
 	}
 	
 
-
-
+	public Set<CursoDetalle> getDetalle() {
+		return detalle;
+	}
+	public void setDetalle(Set<CursoDetalle> detalle) {
+		this.detalle = detalle;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,6 +94,14 @@ public class Modulo implements Serializable{
 		return true;
 	}
 	
-	 
+	@Override
+	public String toString() {
+		return "Modulo [codigo=" + codigo + ", nombre=" + nombre + ", nHoras=" + nHoras + ", descripcion=" + descripcion
+				+ ", precio=" + precio + "]";
+	}
+	@Override
+	public int compareTo(Object o) {
+		return (int) (this.codigo - ((Modulo) o).getCodigo());
+	}
 	 
 }

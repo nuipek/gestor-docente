@@ -2,6 +2,7 @@ package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 })
 	
 
-public class Curso implements Serializable{
+public class Curso implements Serializable, Comparable{
 
 	/**
 	 * 
@@ -35,6 +36,14 @@ public class Curso implements Serializable{
 	private boolean activo;
 	private double precio;
 	
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="curso")
+	private Set<CursoDetalle> modulos;
+	
+	
+	
+	
+	
 	 // ManyToOne de cliente
 	/*
 	@ManyToOne(fetch = FetchType.LAZY) // carga Lazy es por defecto
@@ -42,6 +51,12 @@ public class Curso implements Serializable{
 	*/
 	
 	
+	public Set<CursoDetalle> getModulos() {
+		return modulos;
+	}
+	public void setModulos(Set<CursoDetalle> modulos) {
+		this.modulos = modulos;
+	}
 	public double getPrecio() {
 		return precio;
 	}
@@ -66,6 +81,7 @@ public class Curso implements Serializable{
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
+	
 	public Date getfInicio() {
 		return fInicio;
 	}
@@ -78,6 +94,8 @@ public class Curso implements Serializable{
 	public void setfFin(Date fFin) {
 		this.fFin = fFin;
 	}
+	
+	
 	public int getnHoras() {
 		return nHoras;
 	}
@@ -117,11 +135,18 @@ public class Curso implements Serializable{
 			return false;
 		return true;
 	}
+	
+
 	@Override
 	public String toString() {
 		return "Curso [codigo=" + codigo + ", nombre=" + nombre + ", identificador=" + identificador + ", fInicio="
 				+ fInicio + ", fFin=" + fFin + ", nHoras=" + nHoras + ", temario=" + temario + ", activo=" + activo
 				+ "]";
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		return (int) (this.codigo - ((Curso) o).getCodigo());
 	}
 	
 	

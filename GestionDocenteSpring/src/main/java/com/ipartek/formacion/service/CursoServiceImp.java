@@ -13,7 +13,7 @@ import com.ipartek.formacion.service.interfaces.CursoService;
 
 @Service("cursoServiceImp")
 public class CursoServiceImp implements  CursoService{
-    
+	
 	@Resource(name="cursoServiceRemote")
 	private CursoServiceRemote cursoServiceRemote;
 	

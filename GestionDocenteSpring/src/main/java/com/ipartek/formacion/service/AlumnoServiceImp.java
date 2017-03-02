@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
 import com.ipartek.formacion.dbms.persistence.Alumno;
@@ -22,6 +23,7 @@ public class AlumnoServiceImp implements AlumnoService{
 	}
 
 	@Override
+	@Transactional
 	public Alumno create(Alumno alumno) {
 		
 		return alumnoDao.create(alumno);
@@ -40,13 +42,18 @@ public class AlumnoServiceImp implements AlumnoService{
 	}
 
 	@Override
+	@Transactional
 	public Alumno update(Alumno alumno) {
 	
 		return alumnoDao.update(alumno);
 	}
 
 	@Override
+	@Transactional
 	public void delete(int codigo) {
+		// begin();
+		// commit();
+		// rollback();
 		alumnoDao.delete(codigo);
 		
 	}

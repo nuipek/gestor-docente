@@ -2,11 +2,12 @@ package com.ipartek.formacion.curso;
 
 import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.ipartek.formacion.persistence.Curso;
 
@@ -31,8 +32,8 @@ public class CursoServiceBean implements CursoServiceRemote {
 */
 	@Override
 	public List<Curso> getAll() {
-		
-		Query cursos = entityManager.createNamedQuery("curso.getall");
+		TypedQuery<Curso> cursos = entityManager.createNamedQuery("curso.getall", Curso.class);
+		//Query cursos = entityManager.createNamedQuery("curso.getall");
 		return cursos.getResultList();
 	}
 
@@ -44,7 +45,15 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public Curso update(Curso curso) {
-	    entityManager.persist(curso);
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+	    try {
+			entityManager.persist(curso);
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		}
 		return curso;
 	}
 
