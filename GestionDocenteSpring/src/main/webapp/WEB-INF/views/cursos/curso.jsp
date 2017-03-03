@@ -20,7 +20,8 @@
 			<p>${curso.precio}</p>
 	
 		</div>
-			<c:if test="${curso.modulos.size() > 0}" >
+			
+		<c:if test="${curso.alumnos.size() > 0}" >
 			<table>
 				<thead>
 					<tr>
@@ -29,20 +30,18 @@
 						<th>Apellidos</th>		
 					</tr>
 				</thead>
-				<c:forEach var="modulo" items="${curso.modulos}">
+				<c:forEach var="alumno" items="${curso.alumnos}">
 				<tbody>
 					<tr>
-					<c:forEach var="alumno" items="${modulo.imparticion.alumnos}">
 						<td>${alumno.codigo} <a href="<c:url value='alumnos/${alumno.codigo}'/>">Ir a</a></td>
 						<td>${alumno.nombre}</td>
 						<td>${alumno.apellidos}</td>
-					</c:forEach>
-					
 					</tr>
 				</tbody>
 				</c:forEach>
 				</table>
-			</c:if>
+			</c:if>	
+			
 		<c:if test="${curso.modulos.size() > 0}" >
 			<table>
 				<thead>

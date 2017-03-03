@@ -2,16 +2,29 @@ package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+@NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(
+		name = "curso.getAlumnos", 
+		resultClasses = Alumno.class,
+		procedureName = "alumnogetByCurso", 
+		parameters = { 
+						@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class) 
+					 }
+	)
+})
+ 
 @Table(name = "curso") // Marcamos el Nombre de la tabla
 @Entity(name="curso") // Marcamos el nombre de la clase
 @NamedQueries({
 	@NamedQuery(name = "curso.getall", query = "SELECT c FROM curso c" )
 })
-	
 
 public class Curso implements Serializable, Comparable{
 
@@ -37,10 +50,14 @@ public class Curso implements Serializable, Comparable{
 	private double precio;
 	
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="curso")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
+	@Fetch(FetchMode.JOIN)
 	private Set<CursoDetalle> modulos;
 	
+	@Transient
+	private List<Alumno>alumnos;
 	
+
 	
 	
 	
@@ -50,10 +67,16 @@ public class Curso implements Serializable, Comparable{
 	Cliente cliente;
 	*/
 	
-	
+	public List<Alumno> getAlumnos() {
+		return alumnos;
+	}
+	public void setAlumnos(List<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
 	public Set<CursoDetalle> getModulos() {
 		return modulos;
 	}
+
 	public void setModulos(Set<CursoDetalle> modulos) {
 		this.modulos = modulos;
 	}

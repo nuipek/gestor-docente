@@ -5,10 +5,13 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 
+import com.ipartek.formacion.persistence.Alumno;
 import com.ipartek.formacion.persistence.Curso;
 
 /**
@@ -39,7 +42,22 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public Curso getById(long codigo) {
+		
 		Curso curso = entityManager.find(Curso.class, codigo);
+		
+	  //Utilizando llamada directa al nombre del procedimiento
+	  //StoredProcedureQuery query = entityManager..createStoredProcedureQuery("alumnogetByCurso",Alumno.class);
+	  //query.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+		
+	  // Utilizando NamedStoredProcedure asociado a la clase Curso
+		StoredProcedureQuery query = entityManager.createNamedStoredProcedureQuery("curso.getAlumnos");
+				
+		query.setParameter(1, curso.getCodigo());
+	
+		List<Alumno> alumnos = query.getResultList();
+		
+		curso.setAlumnos(alumnos);
+		
 		return curso;
 	}
 

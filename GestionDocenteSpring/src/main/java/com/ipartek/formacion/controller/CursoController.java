@@ -33,6 +33,7 @@ public class CursoController {
 		return "cursos/cursos";
 	}
 	
+	
 	@RequestMapping(value="/alumnos/{codigo}")
 	public ModelAndView verAlumno(@PathVariable("codigo") int codigo)
 	{
