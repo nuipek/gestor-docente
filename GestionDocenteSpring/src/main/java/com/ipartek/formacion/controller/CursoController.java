@@ -21,8 +21,7 @@ public class CursoController {
 	
     @Autowired
 	private CursoService cS;
-    @Autowired
-    private AlumnoService aS;
+
     
     private static final Logger logger = LoggerFactory.getLogger(CursoController.class);
 	
@@ -34,14 +33,27 @@ public class CursoController {
 	}
 	
 	
-	@RequestMapping(value="/alumnos/{codigo}")
-	public ModelAndView verAlumno(@PathVariable("codigo") int codigo)
+	@RequestMapping(value="/{codigocurso}/detalles/{codigodetalle}")
+	public ModelAndView getDetalleByCurso(@PathVariable("codigocurso") long codigocurso, 
+										  @PathVariable("codigodetalle") long codigodetalle)
 	{
-		ModelAndView mav = new ModelAndView("alumnos/alumno");
-		
-		mav.addObject("alumno", aS.getById(codigo));
+		ModelAndView mav = null; //new ModelAndView("alumnos/alumno");
+	
+		//mav.addObject("alumno", aS.getById(codigo));
 		return mav;
 	}
+	
+	@RequestMapping(value="/{codigocurso}/alumnos/{codigodetalle}")
+	public ModelAndView getAlumnoByCurso(@PathVariable("codigocurso") long codigocurso, 
+										  @PathVariable("codigodetalle") long codigodetalle)
+	{
+		ModelAndView mav = null; //new ModelAndView("alumnos/alumno");
+	
+		//mav.addObject("alumno", aS.getById(codigo));
+		return mav;
+	}
+	
+	
 	
 	
 	@RequestMapping("/{codigo}")

@@ -30,10 +30,12 @@
 						<th>Apellidos</th>		
 					</tr>
 				</thead>
+			
 				<c:forEach var="alumno" items="${curso.alumnos}">
 				<tbody>
 					<tr>
-						<td>${alumno.codigo} <a href="<c:url value='alumnos/${alumno.codigo}'/>">Ir a</a></td>
+						<a href="<c:url value='/cursos/${curso.codigo}/alumnos/${alumno.codigo}'/>"/>${alumno.codigo} ${alumno.nombre} {alumno.apellidos} </a>
+						<td>${alumno.codigo} <!-- <a href="<c:url value='alumnos/${alumno.codigo}'/>">Ir a</a></td>-->
 						<td>${alumno.nombre}</td>
 						<td>${alumno.apellidos}</td>
 					</tr>
@@ -54,6 +56,7 @@
 				<c:forEach var="modulo" items="${curso.modulos}">
 				<tbody>
 					<tr>
+					   <a href='<c:url value="/cursos/${curso.codigo}/detalles/${modulo.codigo}"/>'/>${modulo.modulo.nombre}</a>
 						<td>${modulo.modulo.nombre}</td>
 						<td>${modulo.modulo.nHoras}</td>
 						<td>${modulo.modulo.precio}</td>

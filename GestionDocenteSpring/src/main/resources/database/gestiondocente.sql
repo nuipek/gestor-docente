@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-02-2017 a las 13:07:36
+-- Tiempo de generación: 03-03-2017 a las 11:16:43
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -68,6 +68,26 @@ SELECT   `codigo`, `nombre`, `apellidos`, `fNacimiento`
 FROM alumno;
 END$$
 
+DROP PROCEDURE IF EXISTS `alumnogetByCurso`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnogetByCurso`(IN pcodigo INT)
+BEGIN
+
+SELECT DISTINCT al.codigo as codigo, al.nombre as nombre, al.apellidos as apellidos, al.fNacimiento as fNacimiento,
+al.dni as dni, al.poblacion as poblacion, al.direccion as direccion,
+			    al.codigoPostal as codigoPostal ,al.email as email, al.telefono as telefono, 
+                al.nHermanos as nHermanos, al.activo as activo
+
+FROM curso c INNER JOIN curso_detalle cd ON c.codigo = cd.curso_codigo
+
+INNER JOIN imparticion i ON cd.codigo = i.curso_detalle_codigo 
+INNER JOIN asistente asi ON i.codigo = asi.imparticion_codigo 
+INNER JOIN alumno as al ON asi.alumno_codigo = al.codigo 
+WHERE  c.codigo = pcodigo;
+
+
+
+END$$
+
 DROP PROCEDURE IF EXISTS `alumnogetByDni`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnogetByDni`(IN `pdni` VARCHAR(9), IN `pcodigo` INT, OUT `presultado` INT)
     NO SQL
@@ -98,8 +118,8 @@ END$$
 DROP PROCEDURE IF EXISTS `alumnoInforme`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `alumnoInforme`(IN pcodigo INT)
 BEGIN
- SELECT al.nombre, al.apellidos,al.email, 
-		cu.nombre as nombrecurso, cu.identificador,
+ SELECT al.codigo, al.nombre, al.apellidos,al.email, 
+		cu.codigo as codigocurso, cu.nombre as nombrecurso, cu.identificador,
         cu.finicio, cu.ffin,cu.nhoras,cu.precio
  
  FROM alumno as al 
@@ -459,7 +479,7 @@ INSERT INTO `curso_detalle` (`codigo`, `fInicio`, `fFin`, `precio`, `curso_codig
 (2, '2017-01-01', '2017-01-01', 250.00, 1, 2),
 (3, '2017-02-01', '2017-02-01', 200.00, 2, 3),
 (4, '2016-01-01', '2016-01-01', 150.00, 2, 4),
-(5, '2016-02-02', '0000-00-00', 350.00, 3, 5);
+(5, '2016-02-02', '2015-09-01', 350.00, 3, 5);
 
 -- --------------------------------------------------------
 
