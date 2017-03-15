@@ -38,8 +38,6 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	private String poblacion;
 	private int codigoPostal;
 	
-	private String sessionId;
-
 	private int codigo;
 	private boolean activo;
 	private int nHermanos;
@@ -67,9 +65,9 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		this.poblacion="";
 		this.telefono="94";
 		
-		this.sessionId = "";
+	
 		
-		this.cursos = new ArrayList<com.ipartek.formacion.persistence.Curso>();
+		//this.cursos = new ArrayList<com.ipartek.formacion.persistence.Curso>();
 		
 		
 
@@ -219,14 +217,6 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		}
 */
 		this.fNacimiento = fNacimiento;
-	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
 	}
 
 	@Override

@@ -21,6 +21,7 @@
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<artifact.jar>gestion-docente-common</artifact.jar>
 		<artifact.ejb>gestion-docente-ejb</artifact.ejb>
+		<jackson.library>2.7.5</jackson.library>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -172,6 +173,19 @@
     		<artifactId>sqljdbc4</artifactId>
    		 <version>4.0</version>
 		</dependency>
+		<!--  JSON -->
+		  <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.library}</version>
+        </dependency>
+     <!-- XML -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.library}</version>
+        </dependency>
+         
 </dependencies>
     <build>
         <plugins>

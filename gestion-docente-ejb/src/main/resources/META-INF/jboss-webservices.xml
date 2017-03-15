@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webservices xmlns="http://www.jboss.com/xml/ns/javaee" 
+    version="1.2">
+  <context-root>/webservices</context-root>
+    <property>
+        <name>wsdl.soapAddress.rewrite.modify-wsdl-address</name>
+        <value>true</value>
+    </property>
+   <port-component>
+    <ejb-name>CursoServiceSOAP</ejb-name>
+    <port-component-name>CursoServiceBeanSOAP</port-component-name>
+    <port-component-uri>/cursosws</port-component-uri>
+  </port-component>
+</webservices>

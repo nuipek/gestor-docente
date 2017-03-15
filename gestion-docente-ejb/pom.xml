@@ -19,6 +19,8 @@
         <!-- JPA Project -->
         <project.version>1.0.0-SNAPSHOT</project.version>
         <artifact.jar>gestion-docente-common</artifact.jar>
+         <!-- apache CFX -->
+        <cxf.version>3.1.6</cxf.version>
     </properties>
       <dependencies>
         <dependency>
@@ -51,6 +53,26 @@
             <artifactId>persistence-api</artifactId>
             <version>1.0.2</version>
         </dependency>
+           <!-- APACHE CXF -->
+         <dependency>
+              <groupId>org.apache.cxf</groupId>
+              <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+              <version>${cxf.version}</version>
+              <scope>provided</scope>
+         </dependency>
+          <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
         
     </dependencies>
       <build>
