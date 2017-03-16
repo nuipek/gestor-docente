@@ -1,11 +1,15 @@
-package com.ipartek.formacion.api.restfulservers;
+package com.ipartek.formacion.api.restfulservers.alumno;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.ipartek.formacion.controller.validator.AlumnoValidator;
 import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.service.interfaces.AlumnoService;
 
@@ -22,6 +27,17 @@ public class AlumnoRestController {
 
 	@Autowired
 	private AlumnoService aS;
+	
+	/*
+	 * Para utilizar la interface
+	 * IGUAL A 
+	 * 
+	 * @Resource(name="alumnoValidator") = @Autowired +  @Qualifier("alumnoValidator")
+	 * Validator validator;
+	 */
+	@Autowired 
+	AlumnoValidator validator;
+	
 	/*
 	http://gestiondocente/api/alumnos/i
 	GET    --> GETBYID
@@ -33,12 +49,18 @@ public class AlumnoRestController {
 	POST --> CREATE
 	*/
 	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder){
+		// binder.setValidator(new AlumnoValidator());// Equivalente a la inyeccion
+		binder.setValidator(validator);
+	} 
+	
 	@RequestMapping(value="/{codigo}", method=RequestMethod.GET)
 	public ResponseEntity<Alumno> getById(@PathVariable("codigo") int codigo){
 		
 		Alumno alumno = aS.getById(codigo);
 		ResponseEntity<Alumno> response=null;
-		if (alumno==null){ // No existe 404
+		if (alumno==null || alumno.getCodigo()==-1){ // No existe 404
 			response = new ResponseEntity<Alumno>(HttpStatus.NOT_FOUND);
 		}
 		else{ // Correcto 200
@@ -65,7 +87,7 @@ public class AlumnoRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void>create(@RequestBody Alumno alumno, 
+	public ResponseEntity<Void>create(@Valid @RequestBody Alumno alumno, 
 									               UriComponentsBuilder ucBuilder){
 		
 		ResponseEntity<Void> response = null;
@@ -100,7 +122,7 @@ public class AlumnoRestController {
 	
 	@RequestMapping(value="/{codigo}", method = RequestMethod.PUT)
 	public ResponseEntity<Alumno> update(@PathVariable("codigo")int id, 
-										 @RequestBody Alumno alumno){
+										 @Valid @RequestBody Alumno alumno){
 		
 		ResponseEntity<Alumno> response = null;
 		Alumno alum = aS.getById(id);

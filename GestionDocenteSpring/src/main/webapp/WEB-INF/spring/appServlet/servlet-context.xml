@@ -22,10 +22,9 @@
 	</beans:bean>
 	
 	<!--  Los  objetos aqui definidos son visibles solo en la capa vista controlador -->
-	<beans:bean id="alumnoValidator" class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
+	<beans:bean id="alumnoValidator"  class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
 
-		<beans:bean id="clienteValidator" 
-			class="com.ipartek.formacion.controller.validator.ClienteValidator"/>	
+	<beans:bean id="clienteValidator" class="com.ipartek.formacion.controller.validator.ClienteValidator"/>	
 			
 			
 	<beans:bean id="localeResolver"
@@ -43,7 +42,7 @@
 	</interceptors>
 	
 	
-	<!-- Carga los ficheros de properties de constantes  -->
+	<!-- Carga los ficheros de properties de constantes a nivel de proyecto WEB -->
 	<context:property-placeholder location="classpath:/constantes/constantes.properties"/>
 
 	
