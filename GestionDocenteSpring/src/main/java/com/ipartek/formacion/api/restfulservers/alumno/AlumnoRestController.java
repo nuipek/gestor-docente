@@ -7,8 +7,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,8 @@ import com.ipartek.formacion.controller.validator.AlumnoValidator;
 import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.service.interfaces.AlumnoService;
 
+//La notacion para realizar Cors se puede realizar a nivel de clase o para que metodo.
+@CrossOrigin(origins="*",maxAge=3600,methods={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 @RestController
 @RequestMapping(value="/api/alumnos")
 public class AlumnoRestController {
@@ -86,7 +90,9 @@ public class AlumnoRestController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, 
+					consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+					produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Void>create(@Valid @RequestBody Alumno alumno, 
 									               UriComponentsBuilder ucBuilder){
 		

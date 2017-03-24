@@ -34,7 +34,7 @@
 				<c:forEach var="alumno" items="${curso.alumnos}">
 				<tbody>
 					<tr>
-						<a href="<c:url value='/cursos/${curso.codigo}/alumnos/${alumno.codigo}'/>"/>${alumno.codigo} ${alumno.nombre} {alumno.apellidos} </a>
+						<a href="<c:url value='/cursos/${curso.codigo}/alumnos/${alumno.codigo}'/>"/>${alumno.codigo} ${alumno.nombre} ${alumno.apellidos} </a>
 						<td>${alumno.codigo} <!-- <a href="<c:url value='alumnos/${alumno.codigo}'/>">Ir a</a></td>-->
 						<td>${alumno.nombre}</td>
 						<td>${alumno.apellidos}</td>

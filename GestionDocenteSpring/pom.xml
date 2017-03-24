@@ -23,6 +23,7 @@
 		<artifact.ejb>gestion-docente-ejb</artifact.ejb>
 		<jackson.library>2.7.5</jackson.library>
 		<springfox-swagger>2.4.0</springfox-swagger>
+		<org.springsecurity-version>4.2.2.RELEASE</org.springsecurity-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -198,6 +199,24 @@
     		<artifactId>springfox-swagger-ui</artifactId>
     		<version>${springfox-swagger}</version>
 		</dependency>
+		
+		 <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${org.springsecurity-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${org.springsecurity-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${org.springsecurity-version}</version>
+        </dependency>
+		
          
 </dependencies>
     <build>

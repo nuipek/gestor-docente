@@ -11,14 +11,14 @@
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
 <jsp:include page="../includes/header.jsp" />
 
-	<form:form action="save" method="post" commandName="alumno">
+	<form:form action="save" method="post" commandName="alumno" cssClass="">
 		<c:if test="${!empty alumno}">
 			<form:hidden path="codigo"/>
 		</c:if>
 		<div>
 			<form:label path="nombre">Nombre</form:label>
-			<form:input path="nombre" cssErrorClass="" cssClass=""/>
-			<form:errors path="nombre" cssClass="" />
+			<form:input placeholder="Introduzca su nombre" path="nombre" cssErrorClass="" cssClass=""/>
+			<form:errors path="nombre" cssClass="text-danger" />
 		</div>
 		<div>
 			<form:label path="apellidos">Apellidos:</form:label>

@@ -12,8 +12,19 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
+
+   
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!--  ES el resources de spring que empieza desde WEBAPP -->
 	<resources mapping="/resources/**" location="/resources/" />
+	
+	 <!--Se pueden añadir multiples recursos a spring -->
+	 <resources mapping="/resources/css/**" location="/resources/css/" />
+	 <resources mapping="/resources/js/**" location="/resources/js/" />
+	 <resources mapping="/resources/images/**" location="/resources/images/" />
+	 <resources mapping="/resources/fonts/**" location="/resources/fonts/" />
+	
+	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -40,6 +51,27 @@
 			<beans:property name="paramName" value="locale" />
 		</beans:bean>
 	</interceptors>
+	
+	
+	<!-- CONFIGURACION GENERAL PARA CORS -->
+	<cors>
+		<mapping path="/api/**"
+			allowed-origins="*"
+			allowed-methods="GET"
+			allowed-headers=""
+			exposed-headers="" allow-credentials="false"
+			max-age="3600" />
+
+		<mapping path="/api/**"
+			allowed-origins="http://formacion.ipartek.com"
+			allowed-methods="GET, PUT,DELETE,POST"
+			allowed-headers=""
+			exposed-headers="" allow-credentials="false"
+			max-age="3600" />
+
+		<mapping path="/resources/**"
+				allowed-origins="http://formacion.ipartek.com" />
+	</cors>
 	
 	
 	<!-- Carga los ficheros de properties de constantes a nivel de proyecto WEB -->
