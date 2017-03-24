@@ -15,10 +15,14 @@
 		<c:if test="${!empty alumno}">
 			<form:hidden path="codigo"/>
 		</c:if>
-		<div>
-			<form:label path="nombre">Nombre</form:label>
-			<form:input placeholder="Introduzca su nombre" path="nombre" cssErrorClass="" cssClass=""/>
+		<div class = "form-group">
+			<form:label cssClass ="control-label hidden-xs col-sm-2" path="nombre">Nombre</form:label>
+			<div class="col-sm-7">
+				<form:input placeholder="Introduzca su nombre" path="nombre" cssErrorClass="" cssClass=""/>
+			</div>
+			<div class="col-sm-3">
 			<form:errors path="nombre" cssClass="text-danger" />
+			</div>
 		</div>
 		<div>
 			<form:label path="apellidos">Apellidos:</form:label>
