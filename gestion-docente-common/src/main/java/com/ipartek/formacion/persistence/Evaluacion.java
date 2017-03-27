@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/*
 @Entity
 @Table(name="evaluacion")
+*/
 public class Evaluacion implements Serializable, Comparable{
 
 	/**

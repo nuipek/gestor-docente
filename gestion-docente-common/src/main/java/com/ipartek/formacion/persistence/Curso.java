@@ -49,23 +49,22 @@ public class Curso implements Serializable, Comparable{
 	private boolean activo;
 	private double precio;
 	
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
-	@Fetch(FetchMode.JOIN)
-	private Set<CursoDetalle> modulos;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cliente_codigo")
+	private Cliente cliente;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "profesor_codigo")
+	private Profesor profesor;
 	
 	@Transient
 	private List<Alumno>alumnos;
 	
-
-	
-	
-	
-	 // ManyToOne de cliente
 	/*
-	@ManyToOne(fetch = FetchType.LAZY) // carga Lazy es por defecto
-	Cliente cliente;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
+	@Fetch(FetchMode.JOIN)
+	private Set<CursoDetalle> modulos;
 	*/
+	
 	
 	public List<Alumno> getAlumnos() {
 		return alumnos;
@@ -73,6 +72,7 @@ public class Curso implements Serializable, Comparable{
 	public void setAlumnos(List<Alumno> alumnos) {
 		this.alumnos = alumnos;
 	}
+	/*
 	public Set<CursoDetalle> getModulos() {
 		return modulos;
 	}
@@ -80,6 +80,7 @@ public class Curso implements Serializable, Comparable{
 	public void setModulos(Set<CursoDetalle> modulos) {
 		this.modulos = modulos;
 	}
+	*/
 	public double getPrecio() {
 		return precio;
 	}

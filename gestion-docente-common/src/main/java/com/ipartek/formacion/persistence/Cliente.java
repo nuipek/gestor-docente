@@ -1,6 +1,7 @@
 package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,18 +18,37 @@ public class Cliente implements Serializable, Comparable{
 	@GeneratedValue
 	private long codigo;
 	private String nombre;
+	@Transient
 	private String apellidos; 
 	private String direccion; 
 	private String poblacion; 
 	private Integer codigoPostal;
 	private String email;
 	private String telefono;
+	private String identificador;
+	@Transient
 	private String identificativo;
 	private boolean activo;
 	
+	@Transient
+	private List<Curso> cursos;
 	
 	
 	
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+
+
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+
+
+
 	public long getCodigo() {
 		return codigo;
 	}
@@ -210,6 +230,20 @@ public class Cliente implements Serializable, Comparable{
 	@Override
 	public int compareTo(Object o) {
 		return (int) (this.codigo - ((Cliente) o).getCodigo());
+	}
+
+
+
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+
+
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
 	
 	

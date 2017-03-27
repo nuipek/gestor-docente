@@ -43,6 +43,11 @@ public class Alumno implements Serializable, Comparable{
 	private String telefono;
 	private int nHermanos;
 	private boolean activo;
+	
+	@Transient
+	private List<Curso> cursos; 
+	
+	/*
 	//@Fetch(FetchMode.JOIN)// Si fuese imprescindible una list se tendria que incluir esta anotacion con Join o Subselect
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name = "asistente", 
@@ -51,12 +56,26 @@ public class Alumno implements Serializable, Comparable{
 			  )
 	private Set<Imparticion> imparticiones;
 	
-	
+	*/
 	
 	public Alumno(){
 		super();
 	}
 	
+	
+	
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+
+
 	public long getCodigo() {
 		return codigo;
 	}

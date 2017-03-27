@@ -61,7 +61,7 @@ public class CursoController {
 	{
 		Curso curso =  cS.getById(codigo);
 		logger.info(curso.toString());
-		System.out.println(curso.getModulos().size());
+		//System.out.println(curso.getModulos().size());
 		//System.out.println("Alumnos" + (curso.getModulos()).  .size());
 		model.addAttribute("curso",curso);
 		return "cursos/curso";

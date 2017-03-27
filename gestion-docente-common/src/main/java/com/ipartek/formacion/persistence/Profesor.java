@@ -2,6 +2,7 @@ package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -39,16 +41,34 @@ public class Profesor implements Serializable,Comparable {
 	private String email; 
 	private boolean activo;
 	
+	@Transient
+	private List<Curso>cursos;
+	
+	/*
 	// el mappedby es el nombre de la joincolumn de la relacion en imparticiones
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="profesor") 
 	
 	//@JoinColumn(name="profesor_codigo", referencedColumnName="codigo") equivalente al mappedBy
 	private Set<Imparticion> imparticiones;
-	
+	*/
 	public Profesor(){
 		super();
 	}
 	
+	
+	
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+
+
 	public long getCodigo() {
 		return codigo;
 	}

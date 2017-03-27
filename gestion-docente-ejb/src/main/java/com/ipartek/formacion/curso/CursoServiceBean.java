@@ -77,13 +77,29 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public Curso create(Curso curso) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+		try{
+			entityManager.persist(curso);
+			tx.commit();
+			entityManager.flush();
+		}catch(Exception e){
+			tx.rollback();
+		}
+		return curso;
 	}
 
 	@Override
 	public void delete(long codigo) {
-		// TODO Auto-generated method stub
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		tx.begin();
+		try{
+			entityManager.remove(entityManager.find(Curso.class,codigo));
+			tx.commit();
+		}catch(Exception e){
+			tx.rollback();
+		}
 		
 	}
 
