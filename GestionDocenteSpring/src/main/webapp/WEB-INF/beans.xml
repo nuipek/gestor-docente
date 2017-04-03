@@ -43,12 +43,47 @@
     
     <jee:jndi-lookup id="cursoServiceRemote" jndi-name="java:app/gestion-docente-ejb/cursoServiceBean" />
     
+     <jee:jndi-lookup id="profesorServiceRemote" jndi-name="java:app/gestion-docente-ejb/profesorServiceBean" />
+     
+     <jee:jndi-lookup id="clienteServiceRemote" jndi-name="java:app/gestion-docente-ejb/clienteServiceBean" />
+     
+      <jee:jndi-lookup id="alumnoServiceRemote" jndi-name="java:app/gestion-docente-ejb/alumnoServiceBean" />
+    
+    <bean id="profesorServiceEJBImp" class="com.ipartek.formacion.service.ProfesorServiceEJBImp">
+    	<property name="profesorServiceRemote" ref="profesorServiceRemote"/>
+   </bean>
+   
+     <bean id="clienteServiceEJBImp" class="com.ipartek.formacion.service.ClienteServiceEJBImp">
+    	<property name="clienteServiceRemote" ref="clienteServiceRemote"/>
+   </bean>
+   
+     <bean id="alumnoServiceEJBImp" class="com.ipartek.formacion.service.AlumnoServiceEJBImp">
+    	<property name="alumnoServiceRemote" ref="alumnoServiceRemote"/>
+   </bean>
+   
     <bean id="cursoServiceImp" class="com.ipartek.formacion.service.CursoServiceImp">
     	<property name="cursoServiceRemote" ref="cursoServiceRemote"/>
    </bean>
+  <!--  
+  <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	    <property name="formatters">
+	        <set>
+	            <bean class="com.ipartek.formacion.controller.formater.ProfesorFormatter"/>
+	        </set>
+	    </property>
+	   	<property name="converters">
+	        <set>
+	            <bean  class="com.ipartek.formacion.controller.formater.ProfesorConverter" />
+	        </set>
+	    </property>
+	</bean>
+	 -->
+   
 </beans>
     
   <!--   <jee:jndi-lookup id="jpaDatasource" jndi-name="java:/GestionDocente" /> -->
+  
+
   
    
     

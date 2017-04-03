@@ -50,6 +50,7 @@ public class CursoServiceBean implements CursoServiceRemote {
 	  //query.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
 		
 	  // Utilizando NamedStoredProcedure asociado a la clase Curso
+		/*
 		StoredProcedureQuery query = entityManager.createNamedStoredProcedureQuery("curso.getAlumnos");
 				
 		query.setParameter(1, curso.getCodigo());
@@ -57,19 +58,21 @@ public class CursoServiceBean implements CursoServiceRemote {
 		List<Alumno> alumnos = query.getResultList();
 		
 		curso.setAlumnos(alumnos);
-		
+		*/
 		return curso;
 	}
 
 	@Override
 	public Curso update(Curso curso) {
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
+		//EntityTransaction tx = entityManager.getTransaction();
+		//tx.begin();
 	    try {
-			entityManager.persist(curso);
-			tx.commit();
+			//entityManager.persist(curso);
+			curso  = entityManager.merge(curso);
+			entityManager.flush();
+			//tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			//tx.rollback();
 			e.printStackTrace();
 		}
 		return curso;
@@ -77,14 +80,16 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public Curso create(Curso curso) {
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
+		
+		
 		try{
-			entityManager.persist(curso);
-			tx.commit();
-			entityManager.flush();
+			//entityManager.persist(curso);
+			 curso = entityManager.merge(curso);
+		//	entityManager.merge(curso);
+			//entityManager.flush();
 		}catch(Exception e){
-			tx.rollback();
+			
+			System.out.println("RollBack " + e.getMessage() );
 		}
 		return curso;
 	}

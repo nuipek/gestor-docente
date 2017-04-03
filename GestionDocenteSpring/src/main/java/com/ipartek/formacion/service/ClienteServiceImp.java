@@ -2,11 +2,13 @@ package com.ipartek.formacion.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ipartek.formacion.cliente.ClienteServiceRemote;
 import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
 import com.ipartek.formacion.dbms.persistence.Cliente;
 import com.ipartek.formacion.service.interfaces.ClienteService;
@@ -16,6 +18,8 @@ public class ClienteServiceImp implements ClienteService {
 
 	@Autowired
     ClienteDAO clienteDao;
+	
+	
 
 	@Override
 	public List<Cliente> getAll() {
@@ -64,5 +68,6 @@ public class ClienteServiceImp implements ClienteService {
 				
 		return clienteDao.getInforme(codigo);
 	}
+
 
 }

@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="cliente")
 @Table(name="cliente")
+@NamedQueries({
+	@NamedQuery(name = "clientes.getall", query = "SELECT c FROM cliente c" )
+})
 public class Cliente implements Serializable, Comparable{
 
 	/**
@@ -15,7 +18,7 @@ public class Cliente implements Serializable, Comparable{
 	private static final long serialVersionUID = 3576905169452924689L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
 	private String nombre;
 	@Transient

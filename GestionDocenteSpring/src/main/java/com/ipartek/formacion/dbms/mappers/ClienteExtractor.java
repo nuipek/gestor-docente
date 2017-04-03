@@ -29,7 +29,7 @@ public class ClienteExtractor implements ResultSetExtractor<Map<Integer, Cliente
 			if (cliente == null) {// si el cliente no esta en el mapa
 				cliente = new Cliente();
 				cliente.setNombre(rs.getString("nombre"));
-				cliente.setIdentificativo(rs.getString("identificador"));
+				//cliente.setIdentificativo(rs.getString("identificador"));
 				cliente.setCodigoPostal(rs.getInt("codigopostal"));
 				cliente.setDireccion(rs.getString("direccion"));
 				cliente.setEmail(rs.getString("email"));

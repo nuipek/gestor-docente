@@ -10,7 +10,18 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+		
+	<annotation-driven conversion-service="conversionService" />
+	<beans:bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" >
+	    <beans:property name="converters">
+	        <beans:set>
+	            <beans:bean class="com.ipartek.formacion.controller.formater.ProfesorConverter"/>
+	             <beans:bean class="com.ipartek.formacion.controller.formater.ClienteConverter"/>
+	             <beans:bean class="com.ipartek.formacion.controller.formater.AlumnoConverter"/>
+	             
+	        </beans:set>
+	    </beans:property>
+	</beans:bean>
 
 
    
@@ -34,8 +45,8 @@
 	
 	<!--  Los  objetos aqui definidos son visibles solo en la capa vista controlador -->
 	<beans:bean id="alumnoValidator"  class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
-
 	<beans:bean id="clienteValidator" class="com.ipartek.formacion.controller.validator.ClienteValidator"/>	
+	<beans:bean id="cursoValidator" class="com.ipartek.formacion.controller.validator.CursoValidator"/>	
 			
 			
 	<beans:bean id="localeResolver"

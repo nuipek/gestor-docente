@@ -2,10 +2,10 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="gestiondocente" transaction-type="JTA" >
-		   <jta-data-source>java:/GestionDocenteDS</jta-data-source>       
+	<persistence-unit name="gestiondocente" transaction-type="JTA" > <!--  JTA el servidor gestiona la transaccionabilidad  -->
+		   <jta-data-source>java:/GestionDocenteDS</jta-data-source>  <!--  ResourceLocal nosotros gestionamos las transacciones con getTransaction, begin , commit y rollback  --> 
          <exclude-unlisted-classes>false</exclude-unlisted-classes>     
-        <properties>        
+        <properties>  
             <property name="showSql" value="true"/>     
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />        
         </properties>   

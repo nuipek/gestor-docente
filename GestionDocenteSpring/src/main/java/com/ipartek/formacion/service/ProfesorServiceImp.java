@@ -2,14 +2,18 @@ package com.ipartek.formacion.service;
 
 import java.util.List;
 
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.ipartek.formacion.curso.CursoServiceRemote;
 import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
 import com.ipartek.formacion.dbms.dao.interfaces.ProfesorDAO;
 import com.ipartek.formacion.dbms.persistence.Profesor;
+import com.ipartek.formacion.profesor.ProfesorServiceRemote;
 import com.ipartek.formacion.service.interfaces.ProfesorService;
 
 @Service // necesario para poder inyectar el objeto en su dependencia
@@ -18,7 +22,7 @@ public class ProfesorServiceImp implements ProfesorService {
 	
 	@Autowired
 	private ProfesorDAO profesorDao;
-	
+		
 	
 	@Override
 	public void setProfesorDao(ProfesorDAO profesorDao) {

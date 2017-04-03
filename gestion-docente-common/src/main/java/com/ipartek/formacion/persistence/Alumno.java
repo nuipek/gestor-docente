@@ -9,18 +9,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@Entity
+@Entity(name="alumno")
 @Table(name="alumno")
+@NamedQueries({
+	@NamedQuery(name = "alumnos.getall", query = "SELECT a FROM alumno a" )
+})
 public class Alumno implements Serializable, Comparable{
 	
 	/**
@@ -29,7 +35,7 @@ public class Alumno implements Serializable, Comparable{
 	private static final long serialVersionUID = 2365071600338529508L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="codigo")
 	private long codigo;
 	private String nombre;

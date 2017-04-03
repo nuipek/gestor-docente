@@ -24,8 +24,8 @@ public class CursoServiceImp implements  CursoService{
 
 	@Override
 	public Curso create(Curso curso) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return cursoServiceRemote.create(curso);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class CursoServiceImp implements  CursoService{
 
 	@Override
 	public Curso update(Curso curso) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return cursoServiceRemote.update(curso);
 	}
 
 	@Override

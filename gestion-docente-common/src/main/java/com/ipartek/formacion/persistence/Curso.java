@@ -32,9 +32,11 @@ public class Curso implements Serializable, Comparable{
 	 * 
 	 */
 	private static final long serialVersionUID = -4289085520734386926L;
+	public static final int CODIGO_NULO = -1;
+	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="codigo")
 	private long codigo;
 
@@ -49,14 +51,17 @@ public class Curso implements Serializable, Comparable{
 	private boolean activo;
 	private double precio;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.MERGE)
 	@JoinColumn(name = "cliente_codigo")
 	private Cliente cliente;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.MERGE)
 	@JoinColumn(name = "profesor_codigo")
 	private Profesor profesor;
 	
-	@Transient
+	//@Transient
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+	@JoinTable(name="imparticion", joinColumns = {@JoinColumn(name="curso_codigo")},
+	inverseJoinColumns = {@JoinColumn(name = "alumno_codigo")})
 	private List<Alumno>alumnos;
 	
 	/*
@@ -68,6 +73,18 @@ public class Curso implements Serializable, Comparable{
 	
 	public List<Alumno> getAlumnos() {
 		return alumnos;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Profesor getProfesor() {
+		return profesor;
+	}
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
 	}
 	public void setAlumnos(List<Alumno> alumnos) {
 		this.alumnos = alumnos;

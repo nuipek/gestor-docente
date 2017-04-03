@@ -2,11 +2,13 @@ package com.ipartek.formacion.service.interfaces;
 
 import java.util.List;
 
+import com.ipartek.formacion.cliente.ClienteServiceRemote;
 import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
 import com.ipartek.formacion.dbms.persistence.Cliente;
 
-public interface ClienteService {
 
+public interface ClienteService {
+	
 	public Cliente create(Cliente cliente);
 	
 	public List<Cliente> getAll();

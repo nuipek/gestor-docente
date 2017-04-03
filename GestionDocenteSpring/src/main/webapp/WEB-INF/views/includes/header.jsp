@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <spring:message var="nombreApp" scope="request" code="aplicacion.nombre" />   
 <!DOCTYPE html>
 <html>
@@ -93,7 +94,7 @@
     
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav navabar-right">
             <li><a href="<c:url value='/alumnos'/>"><spring:message code="menu.alumnos" text="G. Alumnos" /></a>	</li>
 				<li><a href="<c:url value='/profesores'/>"><spring:message code="menu.profesores" text="G. Profesores" /></a></li>
 				<li><a href="<c:url value='/clientes'/>"><spring:message code="menu.clientes" text="G. Clientes" /></a></li>
@@ -111,7 +112,23 @@
                 <li><a href="#">One more separated link</a></li>
               </ul>
             </li>
-             -->
+            
+             <li>
+			<sec:authorize access="isAnonymous()">
+			    <form method="POST" action="<c:url value='/login'/>">
+			        Username: <input name="userId" type="text" value="${SPRING_SECURITY_LAST_USERNAME}" /> 
+			        Password: <input name="password" type="password" />
+			        <!-- 
+			        <input type="hidden" name="${_csrf.parameterName}" 	value="${_csrf.token}" />
+			         --> 
+			        <input type="submit" value="Login" />
+			    </form>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+			    <a class="btn btn-default" href="<c:url value="/logout" />">Logout</a>
+			</sec:authorize>
+			</li>
+			
           </ul>
           <!-- 
           <form class="navbar-form navbar-left">

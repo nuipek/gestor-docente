@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Transient;
+
 
 public class Cliente implements Serializable,Comparable<Cliente> {
 
@@ -14,10 +16,12 @@ public class Cliente implements Serializable,Comparable<Cliente> {
 	private static final long serialVersionUID = 1L;
 	private int codigo;
 	private String nombre;
+	@Transient 
 	private String apellidos;
 	private String direccion;
 	private String telefono;
 	private String email;
+	@Transient 
 	private String identificativo;
 	private boolean activo;
 	private int codigoPostal;

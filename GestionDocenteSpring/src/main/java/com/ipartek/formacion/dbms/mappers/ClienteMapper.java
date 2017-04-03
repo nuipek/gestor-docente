@@ -14,11 +14,11 @@ public class ClienteMapper implements RowMapper<Cliente> {
 		Cliente cliente = new Cliente();
 		cliente.setCodigo(rs.getInt("codigo"));
 		cliente.setNombre(rs.getString("nombre"));
-		cliente.setApellidos(rs.getString("apellidos"));
+		//cliente.setApellidos(rs.getString("apellidos"));
 		cliente.setDireccion(rs.getString("direccion"));
 		cliente.setTelefono(String.valueOf(rs.getInt("telefono")));
 		cliente.setEmail(rs.getString("email"));
-		cliente.setIdentificativo(rs.getString("identificativo"));
+		//cliente.setIdentificativo(rs.getString("identificativo"));
 		cliente.setActivo(rs.getBoolean("activo"));
 		
 		return cliente;
