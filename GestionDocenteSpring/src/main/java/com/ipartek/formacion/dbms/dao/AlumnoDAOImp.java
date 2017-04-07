@@ -37,6 +37,7 @@ public class AlumnoDAOImp implements AlumnoDAO {
 	
 	// Se utiliza para cargar las properties del root-context a las variables que aplican
 	// siempre se tiene que poner como mienbros de clase
+/*
 	@Value("${alumno.create}")
 	private String sqlCreate;
 	@Value("${alumno.getAll}")
@@ -52,7 +53,17 @@ public class AlumnoDAOImp implements AlumnoDAO {
 	
 	@Value("${alumno.getInforme}")
 	private String sqlgetInforme;
-
+*/
+	
+	private String sqlCreate="alumnoCreate";
+	private String sqlgetAll="CALL alumnogetAll();";
+	private String sqlgetById="CALL alumnogetById(?);";
+	private String sqlUpdate="alumnoUpdate";
+	private String sqlDelete="alumnoDelete";
+	private String sqlgetByDni="alumnogetByDni";
+	private String sqlgetInforme="call alumnoInforme(?);";
+	
+	
 	@Autowired // igual a @inject
 	@Override
 	public void setDataSource(DataSource dataSource) {

@@ -9,7 +9,7 @@
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} - %r [%t] %-5p %c %x - %m%n" />
 		</layout>
 	</appender>
-	
+	<!-- 
 		<appender name="file" class="org.apache.log4j.RollingFileAppender">
 	    <param name="append" value="false" />
 	    <param name="maxFileSize" value="10MB" />
@@ -20,7 +20,7 @@
 			value="%d{yyyy-MM-dd HH:mm:ss} - %r [%t] %-5p %c %x - %m%n" />
 	    </layout>
 	</appender>
-		   
+		    -->
 	<!-- Application Loggers -->
 	<logger name="com.ipartek.formacion">
 		<level value="info" />
@@ -47,7 +47,9 @@
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<!--  <appender-ref ref="file" />  -->
+		<!-- 
+		<appender-ref ref="file" />
+		 -->
 	</root>
 	
 </log4j:configuration>

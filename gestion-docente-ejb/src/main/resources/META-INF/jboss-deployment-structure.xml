@@ -15,6 +15,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                 <include path="META-INF/cxf**" />
             </imports>
         </module>
+         <module name="org.apache.log4j" />
     </dependencies>
 </deployment>
 </jboss-deployment-structure>

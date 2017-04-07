@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.persistence.Alumno;
 import com.ipartek.formacion.persistence.Curso;
 
@@ -22,6 +24,8 @@ import com.ipartek.formacion.persistence.Curso;
 @Stateless(name = "cursoServiceBean")
 public class CursoServiceBean implements CursoServiceRemote {
 
+	private static final Logger LOGGER = Logger.getLogger(CursoServiceBean.class);
+	
 	// se corresponde con el nombre incluido en el persistence.xml
 	@PersistenceContext(unitName = "gestiondocente")
 	private EntityManager entityManager;
@@ -96,14 +100,14 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public void delete(long codigo) {
-		EntityTransaction tx = entityManager.getTransaction();
+		//EntityTransaction tx = entityManager.getTransaction();
 		
-		tx.begin();
+		//tx.begin();
 		try{
 			entityManager.remove(entityManager.find(Curso.class,codigo));
-			tx.commit();
+		//	tx.commit();
 		}catch(Exception e){
-			tx.rollback();
+			//tx.rollback();
 		}
 		
 	}

@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*
-@Entity
+@Entity(name = "imparticion")
 @Table(name = "imparticion")
 */
 public class Imparticion implements Serializable, Comparable{
