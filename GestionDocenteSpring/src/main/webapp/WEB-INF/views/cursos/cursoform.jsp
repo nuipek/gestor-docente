@@ -13,7 +13,7 @@
 <c:url var="cancelUrl" value="/cursos"/>
 <c:url var="sendUrl" value="/cursos/save"/>
 
-	 <form:form action="save" method="post" cssClass="form-horizontal"  modelAttribute="curso"> 
+	 <form:form action="save" method="post"  enctype="multipart/form-data" cssClass="form-horizontal"  modelAttribute="curso"> 
 		<c:if test="${!empty curso}">
 			<form:hidden path="codigo"/>
 		</c:if>
@@ -62,6 +62,7 @@
 				<form:errors path="nHoras" />
 			</div>
 		</div>
+		<!-- 
 		<div class = "form-group">
 			<form:label  cssClass ="control-label col-xs-2" path="temario">Temario:</form:label>
 			<div class="col-xs-7">
@@ -71,6 +72,7 @@
 				<form:errors path="temario" />
 			</div>
 		</div>
+		 -->
 		<div class = "form-group">
 			<form:label  cssClass ="control-label col-xs-2" path="precio">Precio:</form:label>
 			<div class="col-xs-7">
@@ -106,7 +108,21 @@
 					<form:options items="${listadoAlumnos}" itemValue="codigo" itemLabel="nombre" />
 			      </form:select> 
 		      </div>
-		</div>
+			 </div>
+		    <div class="form-group">
+                    <form:label path="temario" cssClass="control-label  col-xs-2">Temario:</form:label>
+                    <div class="col-xs-4">
+                        <form:input path="temario" disabled="disabled" cssClass="form-control" cssErrorClass="text-danger"/>
+                    </div>
+                    <form:errors path="temario" cssClass="text-danger col-xs-6"></form:errors>
+                     
+                     <label class="btn btn-primary">
+                        Examinar&hellip; <input type="file" id="fichero" name="fichero" style="display: none;">
+                    </label>
+                     <!--
+                    <input type="file" id="fichero" name="fichero">
+                    -->
+     </div>  
 		<div class = "form-group ">
 			<div class="col-xs-offset-4 col-xs-8">
 		   	<c:set var="men" value="Crear"/>

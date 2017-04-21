@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.persistence.Alumno;
+
 import com.ipartek.formacion.persistence.Curso;
 
 /**
@@ -68,7 +68,8 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public Curso update(Curso curso) {
-		//EntityTransaction tx = entityManager.getTransaction();
+		// Comentamos el try catch porque lo manejaremos en el controlador
+		/*EntityTransaction tx = entityManager.getTransaction();
 		//tx.begin();
 	    try {
 			//entityManager.persist(curso);
@@ -79,13 +80,16 @@ public class CursoServiceBean implements CursoServiceRemote {
 			//tx.rollback();
 			e.printStackTrace();
 		}
+		*/
+	    curso  = entityManager.merge(curso);
+		entityManager.flush();
 		return curso;
 	}
 
 	@Override
 	public Curso create(Curso curso) {
-		
-		
+		// Comentamos el try catch porque lo manejaremos en el controlador
+		/*
 		try{
 			//entityManager.persist(curso);
 			 curso = entityManager.merge(curso);
@@ -95,6 +99,8 @@ public class CursoServiceBean implements CursoServiceRemote {
 			
 			System.out.println("RollBack " + e.getMessage() );
 		}
+		*/
+		 curso = entityManager.merge(curso);
 		return curso;
 	}
 
