@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
-<c:set scope="request" var="seccion" value="Login"/>
-<jsp:include page="includes/header.jsp" />
 <main class="container-fluid">
 	<section>
 		<header><h2>Login</h2></header>

@@ -41,7 +41,7 @@ public class AlumnoController {
 	@Resource(name="alumnoValidator") // Equivalente a @Autowired @Qualifier("AlumnoValidator")
 	private Validator validator = null; //Objeto validador de spring
 	
-	@InitBinder  // Esta clase llama al init del servlet de spring para binder
+	@InitBinder("alumno")  // Esta clase llama al init del servlet de spring para binder
 	private void initBinder(WebDataBinder binder){
 		binder.setValidator(validator);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), false, 10));
@@ -50,7 +50,8 @@ public class AlumnoController {
 	
 	@RequestMapping( method=RequestMethod.GET)
 	public ModelAndView getAll(){
-		mav = new ModelAndView("alumnos/alumnos");
+		//mav = new ModelAndView("alumnos/alumnos");
+		mav = new ModelAndView("alumnos");
 		// Cargar la lista de alumnos 
 		List alumnos  = aS.getAll();
 		// Enganchar la lista al ModelAndView es igual a añadirla a la request
@@ -62,8 +63,8 @@ public class AlumnoController {
 	
 	@RequestMapping (value="/informeAlumno/{id}")
 	public ModelAndView getInforme(@PathVariable("id") int codigo){
-		ModelAndView mav = new ModelAndView("alumnos/informe");
-		
+		//ModelAndView mav = new ModelAndView("alumnos/informe");
+		ModelAndView mav = new ModelAndView("informeAlumno");
 		Alumno alumno = aS.getInforme(codigo);
 		logger.info(alumno.toString());
 		
@@ -83,7 +84,8 @@ public class AlumnoController {
 	@RequestMapping(value="/{id}")
 	public ModelAndView getById(@PathVariable("id") int codigo)
 	{
-		ModelAndView mav = new ModelAndView("alumnos/alumno");
+		//ModelAndView mav = new ModelAndView("alumnos/alumno");
+		ModelAndView mav = new ModelAndView("alumno");
 		mav.addObject("alumno", aS.getById(codigo));
 		return mav;
 	}
@@ -91,7 +93,7 @@ public class AlumnoController {
 	@RequestMapping(value="/addAlumno")
 	public String addAlumno(Model model){
 		model.addAttribute("alumno", new Alumno());
-		return "alumnos/alumno";
+		return "alumno";
 	}
 	
 	@RequestMapping(value="save", method=RequestMethod.POST)
@@ -101,16 +103,18 @@ public class AlumnoController {
 		
 		if (bindingResult.hasErrors()){
 			logger.info("alumno tiene errores");
-			destino = "alumnos/alumno";
+			destino = "alumno";
 		}
 		else
 		{
 			destino="redirect:/alumnos";
 			if (alumno.getCodigo() > Alumno.CODIGO_NULO){
+				logger.info("alumno editar");
 				aS.update(alumno);
 			}
 			else
 			{
+				logger.info("alumno crear");
 				aS.create(alumno);	
 			}
 		}

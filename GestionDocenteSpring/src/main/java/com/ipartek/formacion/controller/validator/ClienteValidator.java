@@ -34,11 +34,11 @@ private ClienteService cS=null;
 		Cliente cliente = (Cliente)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "form.nombreRequerido", "codigo es incorrecto");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellidos", "form.apellidoRequerido", "Nombre es incorrecto");
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "direccion","form.direccionRequerido", "direccion es incorrecto");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "form.emailRequerido", "email es incorrecto");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono", "form.telefonoRequerido", "telefono es incorrecto");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "identificativo", "form.dniRequerido", "Tiene que introducir un identificativo correcto");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "identificativo", "form.dniRequerido", "Tiene que introducir un identificativo correcto");
 		
 		if (cliente.getCodigo()< Cliente.CODIGO_NULO){
 			 errors.rejectValue("codigo", "valorNegativo", 
@@ -46,10 +46,11 @@ private ClienteService cS=null;
 		 
 		 }
 		
-		
+		/*
 		if (cliente.getIdentificativo().length()>12){
 			errors.rejectValue("identificativo", "Size.identificativo", new Object[]{"'identificativo'"}, "El identificativo es excesivo");
 		}
+		*/
 		
 		if ("0".equals(cliente.getTelefono())){
 			errors.rejectValue("telefono", "Telefono.valorcero", new Object[]{"'telefono'"}, "El telefono no deberia ser 0");
@@ -59,9 +60,6 @@ private ClienteService cS=null;
 			 	errors.rejectValue("nombre", "Size.nombre", new Object[]{"'nombre'"}, "El tamaño del nombre es excesivo.");
 		 }
 	 
-		 if (cliente.getApellidos().length() > 250){
-			 	errors.rejectValue("apellidos", "Size.apellidos", new Object[]{"'apellidos'"}, "El tamaño de los apellidos es excesivo.");
-		 }
 	 
 		 if (cliente.getDireccion().length() > 250){
 			 	errors.rejectValue("direccion", "Size.direccion", new Object[]{"'direccion'"}, "El tamaño de la direccion es excesivo.");
@@ -84,11 +82,11 @@ private ClienteService cS=null;
 		} catch (NumberFormatException e) {
 			errors.rejectValue("telefono", "Pattern.telefono", new Object[]{"'telefono'"}, "El telefono deben ser numeros.");
 		}
-		
+		/*
 		 if (cS.clienteIdentificativoDuplicado(cliente.getIdentificativo(), cliente.getCodigo())){
 				errors.rejectValue("identificativo", "Identificativo.duplicado", new Object[]{"'identificativo'"},"El Identif se encuentra duplicado");
 			}
-		
+		*/
 		
 	}
 

@@ -10,8 +10,6 @@
 </c:if>   
 <spring:message var="seccion" code="cliente.titulo" text="cliente" />
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
-<jsp:include page="../includes/header.jsp" />
-<main>
 <h1>Informe del cliente</h1>
 
 	<c:choose>
@@ -52,7 +50,3 @@
 		No se han encontrador datos del cliente
 		</c:otherwise>
 </c:choose>
-</main>
-
-</body>
-</html>

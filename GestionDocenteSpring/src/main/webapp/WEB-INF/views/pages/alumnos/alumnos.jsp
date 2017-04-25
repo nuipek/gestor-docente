@@ -4,9 +4,9 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>    
 <spring:message var="seccion" code="alumnos.titulo" />
 <c:set scope="request" var="seccion" value="${seccion}"/>
-<jsp:include page="../includes/header.jsp" />
-<main class="container-fluid">
-	<section class="row">
+
+<section class="row">
+<h1>${titulo}</h1>
 		<header class="col-xs-12"><h2 class="text-center text-capitalize">Lista de Alumnos</h2></header>
 		<a class="btn btn-info" href="<c:url value='alumnos/addAlumno'/>">Crear Alumno</a>
 		<a class="btn btn-danger" href="#">Borrar Alumnos</a>
@@ -60,9 +60,4 @@
 			</div>
 		</div>
 		
-	</section>
-</main>
-<footer>
-</footer>
-</body>
-</html>
+</section>

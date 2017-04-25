@@ -198,27 +198,18 @@ public class AlumnoDAOImp implements AlumnoDAO {
 	}
 
 	@Override
-	public boolean alumnoDniDuplicado(String dni,int codigo) {
+	public Alumno alumnoDniDuplicado(String dni) {
 		
-		final String SQL = sqlgetByDni;
-		this.jdbcCall = new SimpleJdbcCall(this.dataSource);
-		// Se asigna el nombre del procedimiento almacenado
-		jdbcCall.withProcedureName(SQL);
-		
-		// Crear un mapa con los parametros de procedimiento almacenado  de entrada IN
-		SqlParameterSource in = new MapSqlParameterSource()
-				.addValue("pdni", dni)
-				.addValue("pcodigo", codigo);
-		
-		logger.info(dni);
-		
-		// Ejecuta la sentencia
-		Map<String,Object>out = jdbcCall.execute(in);
-	    // En out se han recogido los parametros out de la consulta de BBDD.
-	    int total = (Integer)out.get("presultado");
-		logger.info("El valor de la recuperacion Dni Duplicado es "+ total);
-		if (total > 0) return true;
-		else return false;
+		Alumno alumno = null;
+		String sqlReadbydni = "call " + "alumnogetByDni" + "(?);";
+		try {
+			alumno = template.queryForObject(sqlReadbydni, new AlumnoMapper(), new Object[] { dni });
+			logger.info(alumno.toString());
+		} catch (EmptyResultDataAccessException e) {
+			alumno = null;
+			logger.info("No se ha encontrado Alumno para el dni: " + dni + " " + e.getMessage());
+		}
+		return alumno;
 
 	}
 

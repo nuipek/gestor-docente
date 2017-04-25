@@ -70,7 +70,7 @@ public class CursoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CursoController.class);
 
 	
-	@InitBinder  // Esta clase llama al init del servlet de spring para binder
+	@InitBinder("curso")  // Esta clase llama al init del servlet de spring para binder
 	private void initBinder(WebDataBinder binder){
 		binder.setValidator(validator);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), false, 10));
@@ -89,7 +89,7 @@ public class CursoController {
 	public String getAll(Model model){
 		System.out.println(cS.getAll().size());
 		model.addAttribute("listadocursos",cS.getAll());
-		return "cursos/cursos";
+		return "cursos";
 	}
 	
 	
@@ -127,7 +127,7 @@ public class CursoController {
 		model.addAttribute("listadoProfesores",profesorEJB.getAll());
 		model.addAttribute("listadoClientes",clienteEJB.getAll());
 		model.addAttribute("listadoAlumnos",AlumnoEJB.getAll());
-		return "cursos/cursoform";
+		return "cursoform";
 	}
 	
 	@RequestMapping(value="/addCurso")
@@ -138,13 +138,16 @@ public class CursoController {
 		model.addAttribute("listadoProfesores",profesorEJB.getAll());
 		model.addAttribute("listadoClientes",clienteEJB.getAll());
 		model.addAttribute("listadoAlumnos",AlumnoEJB.getAll());
-		return "cursos/cursoform";
+		return "cursoform";
 	}
 	
 	@RequestMapping(value="/deleteCurso/{codigo}")
 	public String deleteCurso(@PathVariable("codigo") int codigo){
 		
 		cS.delete(codigo);
+		// Se mantiene el contrabarra del redirect porque no se llava al resolver es un redireccionamiento
+		// dentro del requestmapping
+		
 		return "redirect:/cursos";
 	}
 	
@@ -174,7 +177,7 @@ public class CursoController {
 			mensaje = new Mensaje(txt,MensajeType.MSG_TYPE_DANGER);
 			
 			 model.addAttribute("mensaje", mensaje);
-			destino = "cursos/cursoform";
+			destino = "cursoform";
 			
 		} else {
 			destino = "redirect:/cursos";
@@ -259,7 +262,7 @@ public class CursoController {
 	@RequestMapping(value="/informeCursos/{codigo}")
 	public String informeCurso(@PathVariable("codigo") int codigo, Model model){
 		 model.addAttribute("curso",cS.getById(codigo));
-		 return "cursos/curso" ;
+		 return "cursodetalle" ;
 	}
 	
 	

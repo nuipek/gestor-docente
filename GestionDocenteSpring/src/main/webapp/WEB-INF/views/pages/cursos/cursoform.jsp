@@ -9,10 +9,9 @@
 </c:if>   
 <spring:message var="seccion" code="curso.titulo" text="curso" />
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
-<jsp:include page="../includes/header.jsp" />
 <c:url var="cancelUrl" value="/cursos"/>
 <c:url var="sendUrl" value="/cursos/save"/>
-
+<section class="row">
 	 <form:form action="save" method="post"  enctype="multipart/form-data" cssClass="form-horizontal"  modelAttribute="curso"> 
 		<c:if test="${!empty curso}">
 			<form:hidden path="codigo"/>
@@ -135,6 +134,4 @@
 		</div>
 		<form:hidden path="activo"/>
 	</form:form>	
-	
-</body>
-</html>
+</section>

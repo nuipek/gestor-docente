@@ -47,7 +47,8 @@ public class ClienteController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView getAll(){
-		mav = new ModelAndView("clientes/clientes");
+		//mav = new ModelAndView("clientes/clientes");
+		mav = new ModelAndView("clientes");
 		mav.addObject("listadoClientes", cS.getAll());
 		logger.trace("getAll");
 		return mav;
@@ -56,7 +57,7 @@ public class ClienteController {
 	@RequestMapping(value="/addCliente")
 	public String addCliente(Model model){
 		model.addAttribute("cliente",new Cliente());
-		return "/clientes/cliente";
+		return "cliente";
 	}
 	
 	@RequestMapping(value="/deleteCliente/{codigo}")
@@ -70,17 +71,19 @@ public class ClienteController {
 	public ModelAndView getById(@PathVariable("codigo") int codigo)
 	{
 	
-		mav = new ModelAndView("clientes/cliente");
+		//mav = new ModelAndView("clientes/cliente");
+		mav = new ModelAndView("cliente");
 		mav.addObject("cliente", cS.getById(codigo));
 		//model.addAttribute("cliente",cS.getById(codigo));
-		mav.setViewName("clientes/cliente");
+		mav.setViewName("cliente");
 		return mav;
 	}
 	
 	@RequestMapping(value="/informeCliente/{codigo}")
 	public ModelAndView verInforme(@PathVariable("codigo") int codigo)
-	{   ModelAndView mav = new ModelAndView("clientes/informe");
-	logger.info("Aqui informeCliente");
+	{   
+	  ModelAndView mav = new ModelAndView("clienteInforme");
+ 	  logger.info("Aqui informeCliente");
 	   //model.addAttribute(cS.getInforme(codigo));
 	   Cliente cliente = cS.getInforme(codigo);
 	   logger.info(cliente.toString());
@@ -97,7 +100,8 @@ public class ClienteController {
 		
 		if (bindingResult.hasErrors()){
 			logger.error("El formulario tiene errores");
-			destino = "clientes/cliente";
+			logger.error(bindingResult.getAllErrors().toString());
+			destino = "cliente";
 		}
 		else
 		{

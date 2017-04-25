@@ -49,8 +49,7 @@ public class CursoServiceImp implements  CursoService{
 
 	@Override
 	public void delete(long codigo) {
-		// TODO Auto-generated method stub
-		
+		 cursoServiceRemote.delete(codigo);
 	}
 
 

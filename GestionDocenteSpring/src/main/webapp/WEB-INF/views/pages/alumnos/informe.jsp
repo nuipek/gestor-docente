@@ -5,8 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
 <spring:message var="seccion" code="alumno.titulo" text="alumno" />
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
-<jsp:include page="../includes/header.jsp" />
-<main>
 <h1>Informe del Alumno</h1>
 
 	<c:choose>
@@ -44,7 +42,3 @@
 		No se han encontrador datos del alumno
 		</c:otherwise>
 </c:choose>
-</main>
-
-</body>
-</html>

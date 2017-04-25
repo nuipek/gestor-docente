@@ -62,7 +62,9 @@ public class ClienteDAOImp implements ClienteDAO {
 					.addValue("pdireccion", cliente.getDireccion())
 					.addValue("pemail", cliente.getEmail())
 					.addValue("ptelefono", cliente.getTelefono())
-					.addValue("pidentificativo", cliente.getIdentificativo());
+					.addValue("pidentificador", cliente.getIdentificativo())
+					.addValue("ppoblacion", cliente.getPoblacion())
+					.addValue("pcodigopostal", cliente.getCodigoPostal());
 		
 		logger.info(cliente.toString());
 		
@@ -136,7 +138,10 @@ public class ClienteDAOImp implements ClienteDAO {
 				.addValue("pdireccion", cliente.getDireccion())
 				.addValue("pemail", cliente.getEmail())
 				.addValue("ptelefono", cliente.getTelefono())
-				.addValue("pidentificativo", cliente.getIdentificativo())
+				.addValue("pidentificador", cliente.getIdentificativo())
+				.addValue("pdirecion", cliente.getDireccion())
+				.addValue("ppoblacion", cliente.getPoblacion())
+				.addValue("pcodigopostal", cliente.getCodigoPostal())
 				.addValue("pcodigo", cliente.getCodigo());
 				
 		

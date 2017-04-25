@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+ 
+<tiles-definitions>  
+  
+   <!-- Base Definition Nombre de la plantilla base se puede poner el nombre deseado -->
+   <definition name="base-definition"
+       template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />  
+      <!--  <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp" />   -->
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
+   </definition>  
+  
+   <!-- Home Page la pagina de arranque de la aplicacion home.jsp -->
+   <definition name="home" extends="base-definition">  
+       <put-attribute name="title" value="Bienvenido" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
+   </definition>  
+ 
+   <!-- login Page el login.jsp para controlar la seguridad -->
+   <definition name="login" extends="base-definition">  
+       <put-attribute name="title" value="login" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
+   </definition>  
+       
+   <!-- cursos Page  el listado de cursos-->
+   <definition name="cursos" extends="base-definition">  
+       <put-attribute name="title" value="Listado de Cursos" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/cursos/cursos.jsp" />  
+   </definition>  
+   
+   <!-- cursoform Page  la vista de curso -->
+   <definition name="cursoform" extends="base-definition">  
+       <put-attribute name="title" value="Curso" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/cursos/cursoform.jsp" />  
+   </definition>  
+   
+      
+   <!-- curso Page  la vista de curso con los datos de alumnos y el detalle -->
+   <definition name="cursodetalle" extends="base-definition">  
+       <put-attribute name="title" value="Curso Detalle" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/cursos/curso.jsp" />  
+   </definition>  
+   
+   
+  <!-- alumnos Page  listado de alumno -->
+   <definition name="alumnos" extends="base-definition">  
+       <put-attribute name="title" value="Listado Alumnos" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/alumnos/alumnos.jsp" />  
+   </definition>  
+   
+    <!-- alumno Page  creacion/edicion alumno -->
+   <definition name="alumno" extends="base-definition">  
+       <put-attribute name="title" value="Alumno" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/alumnos/alumno.jsp" />  
+   </definition> 
+     
+   <!-- informe Page  informe alumno -->
+   <definition name="alumnoInforme" extends="base-definition">  
+       <put-attribute name="title" value="Alumno" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/alumnos/informe.jsp" />  
+   </definition> 
+   
+    <!-- clientes Page  listado de clientes -->
+   <definition name="clientes" extends="base-definition">  
+       <put-attribute name="title" value="Listado Clientes" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/clientes/clientes.jsp" />  
+   </definition>  
+   
+    <!-- cliente Page  creacion/edicion Cliente -->
+   <definition name="cliente" extends="base-definition">  
+       <put-attribute name="title" value="Cliente" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/clientes/cliente.jsp" />  
+   </definition> 
+     
+   <!-- informe Page  informe clientes -->
+   <definition name="clienteInforme" extends="base-definition">  
+       <put-attribute name="title" value="Cliente" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/clientes/informe.jsp" />  
+   </definition> 
+   
+    <!-- profesores Page  listado de profesores -->
+   <definition name="profesores" extends="base-definition">  
+       <put-attribute name="title" value="Listado Profesores" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/profesores/profesores.jsp" />  
+   </definition>  
+   
+    <!-- profesor Page  creacion/edicion profesor -->
+   <definition name="profesor" extends="base-definition">  
+       <put-attribute name="title" value="Profesor" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/profesores/profesor.jsp" />  
+   </definition> 
+  
+</tiles-definitions>

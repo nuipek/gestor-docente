@@ -97,13 +97,14 @@ public class AlumnoRestController {
 									               UriComponentsBuilder ucBuilder){
 		
 		ResponseEntity<Void> response = null;
-		boolean duplicado = aS.alumnoDniDuplicado(alumno.getDni(),alumno.getCodigo());
+		Alumno aux = aS.alumnoDniDuplicado(alumno.getDni());
 		
-		if (duplicado){
+		if (alumno.getDni().equals(aux.getDni()) && 
+				alumno.getCodigo() != aux.getCodigo()){
 			response = new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 		else{
-			Alumno aux;
+			
 			try {
 				aux = aS.create(alumno);
 				// response = new ResponseEntity<Void>(HttpStatus.CREATED); se podria realizar asi

@@ -107,14 +107,19 @@ public class CursoServiceBean implements CursoServiceRemote {
 	@Override
 	public void delete(long codigo) {
 		//EntityTransaction tx = entityManager.getTransaction();
+		//System.out.println("Borramos " + codigo);
+		entityManager.remove(entityManager.find(Curso.class,codigo));
+		entityManager.flush();
 		
 		//tx.begin();
+		/*
 		try{
 			entityManager.remove(entityManager.find(Curso.class,codigo));
 		//	tx.commit();
 		}catch(Exception e){
 			//tx.rollback();
 		}
+		*/
 		
 	}
 

@@ -5,8 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>        
 <spring:message var="seccion" code="profesores.titulo" />
 <c:set scope="request" var="seccion" value="${seccion}"/>
-<jsp:include page="../includes/header.jsp" />
-<main>
+
 	<a href="<c:url value='/profesores/addProfesor'/>">Crear Profesor</a>
 <table>
 	<thead>
@@ -37,6 +36,3 @@
 </c:choose>
 </tbody>
 </table>
-</main>
-</body>
-</html>

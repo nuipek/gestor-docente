@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
-<c:set scope="request" var="seccion" value="listado de cursos"/>
-<jsp:include page="../includes/header.jsp" />
-<main class="container-fluid">
    <section class="row">
    	<header class="col-xs-12"><h2 class="text-center text-capitalize">Listado de Cursos</h2></header>
    	<a class="btn btn-info "  href="<c:url value='cursos/addCurso'/>">Añadir Curso </a>
@@ -36,7 +33,4 @@
 				</div>	
 			</c:forEach>
 	</section>
-</main>
-<footer>
-</footer>
-</html>
+

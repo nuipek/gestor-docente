@@ -33,7 +33,7 @@ public class ProfesorController {
  @RequestMapping(method=RequestMethod.GET)
  public ModelAndView getAll()
  {
-	 mav = new ModelAndView("profesores/profesores");
+	 mav = new ModelAndView("profesores");
 	 List<Profesor> profesores =  pS.getAll();
 	
 	 mav.addObject("listaProfesores", profesores);
@@ -56,7 +56,7 @@ public class ProfesorController {
 		
 		if (bindingResult.hasErrors()){
 			logger.info("Profesor tiene errores");
-			destino = "profesores/profesor";
+			destino = "profesor";
 		}
 		else
 		{
@@ -79,7 +79,7 @@ public class ProfesorController {
  public String addProfesor(Model model){
 	Profesor profesor = new Profesor();
 	model.addAttribute("profesor", profesor);
-	return "profesores/profesor";
+	return "profesor";
 	 
   }
  
@@ -92,7 +92,7 @@ public class ProfesorController {
  
  @RequestMapping(value="/{id}")
  public ModelAndView getById(@PathVariable("id")  int codigo){
-	 ModelAndView mav = new ModelAndView("profesores/profesor");
+	 ModelAndView mav = new ModelAndView("profesor");
 	 Profesor profesor = pS.getById(codigo);
 	 mav.addObject("profesor", profesor);
 	 return mav;

@@ -21,7 +21,7 @@ public class AlumnoValidator implements Validator {
 	   private static final Logger logger = LoggerFactory.getLogger(AlumnoValidator.class);
   
 	@Autowired
-	private AlumnoService aS = null;
+	private AlumnoService aS;
 	
 	
 	@Override
@@ -99,9 +99,18 @@ public class AlumnoValidator implements Validator {
 		}
 		
 		
-		if (aS.alumnoDniDuplicado(alum.getDni(),alum.getCodigo())){
+		 logger.info("dni" + alum.getDni());
+		 logger.info("codigo" + alum.getCodigo());
+		 
+		 logger.info("autowired " + aS.toString());
+		 Alumno aux = aS.alumnoDniDuplicado(alum.getDni());
+		
+		if (alum.getDni().equals(aux.getDni()) && 
+			alum.getCodigo() != aux.getCodigo())
+		{
 			errors.rejectValue("dni", "Dni.duplicado", new Object[]{"'dni'"},"El Dni se encuentra duplicado");
 		}
+		
 	 }// fin del if de null
 	 
 	}

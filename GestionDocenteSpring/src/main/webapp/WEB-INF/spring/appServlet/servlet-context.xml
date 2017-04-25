@@ -38,10 +38,24 @@
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- Para poder utilizar apache tiles debemos dejar de utilizar el de spring para utilizar el de tiles 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	 -->
+	 
+	 <!--Resolvedor de vistas de apache tiles con spring -->
+    <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>   
+    
+   <!-- Referencia al archivo de configuracion  de apache tiles se carga el viewResolver con la configuracion del XML -->
+   <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <beans:property name="definitions">
+            <beans:list>
+                <beans:value>/WEB-INF/views/**/tiles.xml</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
 	
 	<!--  Los  objetos aqui definidos son visibles solo en la capa vista controlador -->
 	<beans:bean id="alumnoValidator"  class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
