@@ -92,5 +92,23 @@
        <put-attribute name="title" value="Profesor" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/profesores/profesor.jsp" />  
    </definition> 
+   
+   <!-- Pagina de Error de Curso -->
+   <definition name="curso_error" extends="base-definition">  
+       <put-attribute name="title" value="Error en Acceder al Curso" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/errors/curso_error.jsp" />  
+   </definition> 
+   
+    <!-- Pagina de Error de Database -->
+   <definition name="database_error" extends="base-definition">  
+       <put-attribute name="title" value="Error en la Base de Datos" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/errors/database_error.jsp" />  
+   </definition> 
+   
+    <!-- Pagina de Error de IOException -->
+   <definition name="generic_error" extends="base-definition">  
+       <put-attribute name="title" value="Error Generico producido en la aplicacion" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/errors/generic_error.jsp" />  
+   </definition> 
   
 </tiles-definitions>

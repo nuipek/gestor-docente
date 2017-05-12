@@ -23,7 +23,14 @@
 	    </beans:property>
 	</beans:bean>
 
-
+	<beans:bean id="simpleMappingExceptionResolver" class="com.ipartek.formacion.controller.resolver.MyMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:map>
+				<beans:entry key="Exception" value="generic_error"></beans:entry>
+			</beans:map>
+		</beans:property>
+		<beans:property name="defaultErrorView" value="generic_error"/>
+	</beans:bean>
    
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<!--  ES el resources de spring que empieza desde WEBAPP -->
@@ -75,6 +82,13 @@
         <beans:property name="defaultEncoding" value="UTF-8"/>
         <beans:property name="resolveLazily" value="true"/>
     </beans:bean>
+    
+
+
+    <!-- See note below on how this interacts with Spring Boot -->
+   
+    
+    <!-- Controla las clases genericas que se quieren controlar que se quieren controlar  -->
     
 	
 	<interceptors>

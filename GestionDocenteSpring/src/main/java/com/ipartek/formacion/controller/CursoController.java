@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ipartek.formacion.alumno.AlumnoServiceRemote;
 import com.ipartek.formacion.cliente.ClienteServiceRemote;
+import com.ipartek.formacion.controller.exceptions.CursoNoEncontradoException;
 import com.ipartek.formacion.controller.pojo.Mensaje;
 import com.ipartek.formacion.controller.pojo.MensajeType;
 import com.ipartek.formacion.controller.validator.FileValidator;
@@ -117,10 +121,15 @@ public class CursoController {
 	
 	
 	@RequestMapping("/{codigo}")
-	public String getById(@PathVariable("codigo") long codigo, Model model)
+	public String getById(@PathVariable("codigo") long codigo, Model model)throws CursoNoEncontradoException
 	{
 		Curso curso =  cS.getById(codigo);
 		LOGGER.info(curso.toString());
+		
+		if (curso== null ){
+			throw new CursoNoEncontradoException(codigo);
+		}
+		
 		//System.out.println(curso.getModulos().size());
 		//System.out.println("Alumnos" + (curso.getModulos()).  .size());
 		model.addAttribute("curso",curso);
@@ -266,5 +275,19 @@ public class CursoController {
 	}
 	
 	
+	// Es la llamada al manejador de la excepcion diseñada
+	@ExceptionHandler(CursoNoEncontradoException.class)
+	public ModelAndView handleCursoNoEncontradoException(HttpServletRequest request, Exception ex){
+		ModelAndView mav = null;
+		// Aqui se trata la excepcion de curso no encontrado
+		LOGGER.error("URL pedida" + request.getRequestURL());
+		LOGGER.error("Excepcion lanzada:" + ex );
+		mav = new ModelAndView();
+		mav.addObject("exception", ex);
+		mav.addObject("url",request.getRequestURL());
+		mav.setViewName("curso_error");
+		return mav;
+		
+	}
 	
 }
