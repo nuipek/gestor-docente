@@ -40,6 +40,9 @@ public class GlobalExceptionHandler {
 	  }
 	  
 	  
+	  
+	  // La peticion al no tener una vista asociada reportamos un error 404 para que vaya a la pagina de 
+	  // pagina no encontrada
 	  @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Error de entrada/salida")
 	  @ExceptionHandler(IOException.class)
 	  public void handleIOException(){
